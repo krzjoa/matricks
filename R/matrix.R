@@ -25,44 +25,17 @@ v <- function(...){
 #'        7, 8, 9 )
 #' @export
 m <- function(...){
-  # Capture user input
+ # Capture user input
   raw.matrix <- rlang::exprs(...)
-
-  # Expressions
-  exprs <- unlist(sapply(raw.matrix, function(x) as.list(x)))
-
-  # Determine row limits
-  delimiter.indices <- which(sapply(exprs, deparse) == '|')
-  values.only <- exprs[-delimiter.indices]
-
-  browser()
-
-  end.idx <- (delimiter.indices + 1) -
-    cumsum(rep(1, times = length(delimiter.indices)))
-  start.idx <- c(1, end.idx + 1)
-  end.idx <- c(end.idx, length(values.only))
-  rng <- as.data.frame(rbind(start.idx, end.idx))
-
-  # Binding values
-  out <- sapply(rng, function(x) rbind(values.only[seq.int(x[1], x[2])]))
-  dimnames(out) <- NULL
-  t(out)
-                
-  # Alternative version
-  # Better logic needed to handle cases like: (2 | 4) | 2 
-  # Capture user input
-  # raw.matrix <- rlang::exprs(...)
-  #
-  # chars <- raw.matrix %>% as.character()
-  # chars <- stringr::str_replace(chars, '\\|', '), cbind(')
-  # chars2 <- paste0('rbind(cbind(', paste(chars, collapse = ',') ,'))')
-  # stringr::str_replace('(6 | 9) | 7', '\\|(?![^()]*\\))', '), cbind(') 
-  # eval(parse(text = chars2))
-  
+  chars <-  as.character(raw.matrix)
+  # Transform input 
+  chars <- gsub('\\|(?![^()]*\\))', '), cbind(', chars, perl = TRUE)
+  chars2 <- paste0('rbind(cbind(', paste(chars, collapse = ',') ,'))')
+  eval(parse(text = chars2))
+ 
+  # Cases for unit tests
   # working: m(1, 2, NA | 4, NA, 6 | (1 | 2), 8, 9)
-  # not working: m(1, 2, NA | 4, NA, (6 | 9) | 7, 8, 9)              
-                
-                
+  # not working: m(1, 2, NA | 4, NA, (6 | 9) | 7, 8, 9)                                    
 }
 
 # m(1, 2, 3 | 4, 5, 6 | 7, 8, (9 + 1))
