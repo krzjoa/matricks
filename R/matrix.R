@@ -35,7 +35,8 @@ m <- function(...){
  
   # Cases for unit tests
   # working: m(1, 2, NA | 4, NA, 6 | (1 | 2), 8, 9)
-  # not working: m(1, 2, NA | 4, NA, (6 | 9) | 7, 8, 9)                                    
+  # not working: m(1, 2, NA | 4, NA, (6 | 9) | 7, 8, 9)
+  # m( 1:3 | 2:4 ), cbind(1:10) non-intuitive behavior
 }
 
 # m(1, 2, 3 | 4, 5, 6 | 7, 8, (9 + 1))
