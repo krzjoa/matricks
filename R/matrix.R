@@ -42,6 +42,23 @@ m <- function(...){
 # We can't use c instead of cbind
 # m(i, a | 
 #  a, i )
+  
+  m(1:3 | 4:6 | 1,2,3)
+
+  
+  raw.matrix <- rlang::exprs(...)
+  
+  col_bind <- function(...){
+    do.call('cbind', c(sapply(list(...), list)))
+  }
+  
+  chars <- raw.matrix %>% as.character()
+  chars <- gsub('\\|(?![^()]*\\))', '), col_bind(', chars, perl = TRUE)
+  chars2 <- paste0('rbind(col_bind(', paste(chars, collapse = ',') ,'))')
+
+  eval(parse(text = chars2))
+  
+  
 }
 
 # m(1, 2, 3 | 4, 5, 6 | 7, 8, (9 + 1))
