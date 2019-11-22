@@ -50,13 +50,13 @@ m <- function(...){
                 
   # Alternative version
   # Better logic needed to handle cases like: (2 | 4) | 2 
-   # Capture user input
+  # Capture user input
   # raw.matrix <- rlang::exprs(...)
-  # 
+  #
   # chars <- raw.matrix %>% as.character()
   # chars <- stringr::str_replace(chars, '\\|', '), cbind(')
   # chars2 <- paste0('rbind(cbind(', paste(chars, collapse = ',') ,'))')
-  # 
+  # stringr::str_replace('(6 | 9) | 7', '\\|(?![^()]*\\))', '), cbind(') 
   # eval(parse(text = chars2))
   
   # working: m(1, 2, NA | 4, NA, 6 | (1 | 2), 8, 9)
