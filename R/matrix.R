@@ -37,6 +37,11 @@ m <- function(...){
   # working: m(1, 2, NA | 4, NA, 6 | (1 | 2), 8, 9)
   # not working: m(1, 2, NA | 4, NA, (6 | 9) | 7, 8, 9)
   # m( 1:3 | 2:4 ), cbind(1:10) rbind(1:10) non-intuitive(?) behavior
+  # i <- diag(3)
+  # a <- i * 3
+# We can't use c instead of cbind
+# m(i, a | 
+#  a, i )
 }
 
 # m(1, 2, 3 | 4, 5, 6 | 7, 8, (9 + 1))
