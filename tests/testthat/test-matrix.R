@@ -1,8 +1,15 @@
 test_that(
-  "Create a vector",{
+  "Create vector",{
   vec1 <- v(1,2,3,4)
   vec2 <- matrix(data = 1:4, ncol = 1)
   expect_equal(vec1, vec2)
+})
+
+test_that(
+  "Create vector from a sequence",{
+    vec1 <- v(1:4)
+    vec2 <- matrix(data = 1:4, ncol = 1)
+    expect_equal(vec1, vec2)
 })
 
 test_that(
@@ -17,6 +24,7 @@ test_that(
   mat2 <- col_bind(diag(3), 1:2)
   expect_equal(mat1, mat2)
 })
+# col_bind(2:5, 1, 2, 3, diag(3))
 
 test_that("m: the simpliest case", {
   mat1 <- m(1, 2, 3 | 4, 5, 6 | 7, 8, 9)
@@ -56,8 +64,19 @@ test_that("m: binding vectors", {
   expect_equal(mat1, mat2)
 })
 
-# col_bind(2:5, 1,2,3)
-# col_bind(2:5, 1, 2, 3, diag(3))
-# We can't use c instead of cbind
-# m(i, a |
-#  a, i )
+test_that("m: binding matrices", {
+  mat1 <- diag(3)
+  mat2 <- mat1 * 3
+
+  mat3 <- m(mat1, mat2 |
+            mat2, mat1)
+  mat4 <- rbind(cbind(mat1, mat2),
+                cbind(mat2, mat1))
+  expect_equal(mat3, mat4)
+})
+
+
+diag()
+
+
+

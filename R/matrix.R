@@ -62,3 +62,4 @@ col_bind <- function(...){
   input <- Reduce(fun, list(...), list())
   do.call('cbind', input)
 }
+
