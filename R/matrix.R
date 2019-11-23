@@ -19,55 +19,46 @@ v <- function(...){
 
 #' @name m
 #' @title A shortcut to create matrix defining rows
+#' @section Creating matrices and vectors
+#' @description
 #' @example
 #' a <- m(1, 2, 3 |
 #'        4, 5, 6 |
 #'        7, 8, 9 )
 #' @export
 m <- function(...){
- # Capture user input
   raw.matrix <- rlang::exprs(...)
   chars <-  as.character(raw.matrix)
-  # Transform input 
-  chars <- gsub('\\|(?![^()]*\\))', '), cbind(', chars, perl = TRUE)
-  chars2 <- paste0('rbind(cbind(', paste(chars, collapse = ',') ,'))')
-  eval(parse(text = chars2))
- 
-  # Cases for unit tests
-  # working: m(1, 2, NA | 4, NA, 6 | (1 | 2), 8, 9)
-  # not working: m(1, 2, NA | 4, NA, (6 | 9) | 7, 8, 9)
-  # m( 1:3 | 2:4 ), cbind(1:10) rbind(1:10) non-intuitive(?) behavior
-  # i <- diag(3)
-  # a <- i * 3
-# We can't use c instead of cbind
-# m(i, a | 
-#  a, i )
-  
-  m(1:3 | 4:6 | 1,2,3)
-
-  
-  raw.matrix <- rlang::exprs(...)
-  
-  col_bind <- function(...){
-    do.call('cbind', c(sapply(list(...), list)))
-  }
-  
-  chars <- raw.matrix %>% as.character()
   chars <- gsub('\\|(?![^()]*\\))', '), col_bind(', chars, perl = TRUE)
   chars2 <- paste0('rbind(col_bind(', paste(chars, collapse = ',') ,'))')
-
   eval(parse(text = chars2))
-  
-  
 }
 
-# m(1, 2, 3 | 4, 5, 6 | 7, 8, (9 + 1))
-
-# a <- m(1, 2, 3 |
-#        4, 5, 6 |
-#        7, 8, 9 |
-#       10, 11, 12)
-#
-# a <- m(1, 2, 3, 4 |
-#          4, 5, 6 |
-#          7, 8, 9 )
+#' @name col_bind
+#' @title Bind vector, single values and matrices
+#' @description
+#' This function works very similar to well-known base
+#' `cbind` function. However, there is one big difference
+#' between these functions. If you pass a vector, each value
+#' will be get individually.
+#' @examples
+#' cbind(1:5)
+#'      [,1]
+#' [1,]    1
+#' [2,]    2
+#' [3,]    3
+#' [4,]    4
+#' [5,]    5
+#' col_bind(1:5)
+#'      [,1] [,2] [,3] [,4] [,5]
+#' [1,]    1    2    3    4    5
+#'
+#'
+col_bind <- function(...){
+  fun <- function(x, y){
+    y <- if(!is.matrix(y)) as.list(y) else list(y)
+    c(x, y)
+  }
+  input <- Reduce(fun, list(...), list())
+  do.call('cbind', input)
+}
