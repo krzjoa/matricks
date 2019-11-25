@@ -1,6 +1,14 @@
 # matricks
 > Useful tricks for algebraic computations in R.
 
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.org/krzjoa/matricks.svg?branch=master)](https://travis-ci.org/krzjoa/matricks)
+<!-- badges: end -->
+  [![Codecov test coverage](https://codecov.io/gh/krzjoa/matricks/branch/master/graph/badge.svg)](https://codecov.io/gh/krzjoa/matricks?branch=master)
+    [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/krzjoa/matricks?branch=master&svg=true)](https://ci.appveyor.com/project/krzjoa/matricks)
+  
+  
+
 ### Installation
 ```r
 devtools::install_github('krzjoa/matricks')
