@@ -1,6 +1,5 @@
 #' @name v
 #' @title A shortcut to create a vector
-#' @section Creating matrices and vectors
 #' @description
 #' This function provides convenient shortcut
 #' to create a vertical (column) vector.
@@ -30,7 +29,6 @@ v <- function(...){
 
 #' @name m
 #' @title A shortcut to create matrix defining rows
-#' @section Creating matrices and vectors
 #' @param ... Single values, vectors, matrices
 #' and `|` as special symbol which breaks input on
 #' the rows.
@@ -79,7 +77,6 @@ m <- function(...){
 
 #' @name col_bind
 #' @title Bind vector, single values and matrices
-#' @section Creating matrices and vectors
 #' @description
 #' This function works very similar to well-known base
 #' `cbind` function. However, there is one big difference
@@ -87,15 +84,15 @@ m <- function(...){
 #' will be get individually.
 #' @examples
 #' cbind(1:5)
-#'      [,1]
-#' [1,]    1
-#' [2,]    2
-#' [3,]    3
-#' [4,]    4
-#' [5,]    5
+#' #      [,1]
+#' # [1,]    1
+#' # [2,]    2
+#' # [3,]    3
+#' # [4,]    4
+#' # [5,]    5
 #' col_bind(1:5)
-#'      [,1] [,2] [,3] [,4] [,5]
-#' [1,]    1    2    3    4    5
+#' #     [,1] [,2] [,3] [,4] [,5]
+#' # [1,]    1    2    3    4    5
 #'
 #'
 #'

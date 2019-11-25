@@ -20,4 +20,4 @@ antidiag <- function(x = 1, nrow, ncol){
 
 }
 
-`diag<-` <- antidiag
+
