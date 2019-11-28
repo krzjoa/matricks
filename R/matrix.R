@@ -8,20 +8,8 @@
 #' @examples
 #' # Enumerating all the values with commas
 #' v(1, 2, 3)
-#' #      [,1]
-#' # [1,]    1
-#' # [2,]    2
-#' # [3,]    3
-#'
 #' # Passing whole sequence as an argument
 #' v(1:5)
-#' #      [,1]
-#' # [1,]    1
-#' # [2,]    2
-#' # [3,]    3
-#' # [4,]    4
-#' # [5,]    5
-#'
 #' @export
 v <- function(...){
   matrix(c(...), ncol = 1)
@@ -40,32 +28,26 @@ v <- function(...){
 #' # Typically, we define in like this:
 #' x <- matrix(c(1, 2, 3,
 #'               4, 5, 6,
-#'               7, 8, 9, nrow=3, byrow=TRUE))
+#'               7, 8, 9), nrow=3, byrow=TRUE)
+#' x
 #' # However, this way of ceating matices seems
 #' # a little bit clunky. Using `matricks`, we can do
-#' it in more staightforward way dividing our input
-#' into rows by using special symbol `|`
-#'
-#' x <- m(1, 2, 3 |
-#'        4, 5, 6 |
-#'        7, 8, 9 )
-#'
+#' # it in more staightforward way dividing our input
+#' # into rows by using special symbol `|`
+#' x <- m(1, 2, 3|
+#'        4, 5, 6|
+#'        7, 8, 9)
+#' x
 #' # Moreover, we can pass to the `m` function
 #' # whole sequences or even matrices.
 #' x <- m(1:5 | 6:10 | 11:15 )
-#'
+#' x
+#' # We can combine multiple matrices into one
 #' i <- diag(3)
 #' a <- i * 3
-#' x <- m(i, a |
-#'        a, i)
-#' #      [,1] [,2] [,3] [,4] [,5] [,6]
-#' # [1,]    1    0    0    3    0    0
-#' # [2,]    0    1    0    0    3    0
-#' # [3,]    0    0    1    0    0    3
-#' # [4,]    3    0    0    1    0    0
-#' # [5,]    0    3    0    0    1    0
-#' # [6,]    0    0    3    0    0    1
-#'
+#' m(i, a|
+#'   a, i)
+#' @import rlang
 #' @export
 m <- function(...){
   raw.matrix <- rlang::exprs(...)
@@ -84,18 +66,8 @@ m <- function(...){
 #' will be get individually.
 #' @examples
 #' cbind(1:5)
-#' #      [,1]
-#' # [1,]    1
-#' # [2,]    2
-#' # [3,]    3
-#' # [4,]    4
-#' # [5,]    5
 #' col_bind(1:5)
-#' #     [,1] [,2] [,3] [,4] [,5]
-#' # [1,]    1    2    3    4    5
-#'
-#'
-#'
+#' @export
 col_bind <- function(...){
   fun <- function(x, y){
     y <- if(!is.matrix(y)) as.list(y) else list(y)

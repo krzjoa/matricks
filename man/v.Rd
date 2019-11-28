@@ -16,7 +16,9 @@ matrix with dims n_elements x 1
 This function provides convenient shortcut
 to create a vertical (column) vector.
 }
-\section{Creating matrices and vectors}{
-NA
+\examples{
+# Enumerating all the values with commas
+v(1, 2, 3)
+# Passing whole sequence as an argument
+v(1:5)
 }
-

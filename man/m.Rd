@@ -6,6 +6,37 @@
 \usage{
 m(...)
 }
+\arguments{
+\item{...}{Single values, vectors, matrices
+and `|` as special symbol which breaks input on
+the rows.}
+}
 \description{
-A shortcut to create matrix defining rows
+One of the main functionalities of the package.
+It is an alternative to standard way we define
+matrices in R.
+}
+\examples{
+# Typically, we define in like this:
+x <- matrix(c(1, 2, 3,
+              4, 5, 6,
+              7, 8, 9, nrow=3, byrow=TRUE))
+x
+# However, this way of ceating matices seems
+# a little bit clunky. Using `matricks`, we can do
+# it in more staightforward way dividing our input
+# into rows by using special symbol `|`
+x <- m(1, 2, 3|
+       4, 5, 6|
+       7, 8, 9)
+x
+# Moreover, we can pass to the `m` function
+# whole sequences or even matrices.
+x <- m(1:5 | 6:10 | 11:15 )
+x
+# We can combine multiple matrices into one
+i <- diag(3)
+a <- i * 3
+m(i, a|
+  a, i)
 }
