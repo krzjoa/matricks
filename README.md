@@ -23,9 +23,9 @@ if we can simply create such a matrix like that:
 ```r
 library(matricks)
 
-m(5, 6, 7 |
-  8, 0, 9 |
-  3, 7, 1 )
+m(5, 6, 7|
+  8, 0, 9|
+  3, 7, 1)
 
 ```
       
