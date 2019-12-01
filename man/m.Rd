@@ -20,7 +20,7 @@ matrices in R.
 # Typically, we define in like this:
 x <- matrix(c(1, 2, 3,
               4, 5, 6,
-              7, 8, 9, nrow=3, byrow=TRUE))
+              7, 8, 9), nrow=3, byrow=TRUE)
 x
 # However, this way of ceating matices seems
 # a little bit clunky. Using `matricks`, we can do

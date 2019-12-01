@@ -20,7 +20,6 @@ antidiag <- function(x = 1, nrow, ncol){
 
 }
 
-
 #' @name %x%
 #' @title multiply matrix by vector (or matrix) rowwise/columnwise
 #' @description
@@ -50,15 +49,41 @@ antidiag <- function(x = 1, nrow, ncol){
     stop("")
 }
 
+#' @name matrix_set
+#' @title Set multiple values useing one function call
+#' @description
+#' This functions allows to set multiple elements of a matrix
+#' instead of using annoying step-by-step assignment by
+#' mat[1,2] <- 2
+#' mat[2,3] <- 0.5
+#' etc.
+#' @examples
+#' mat <- matrix(0, 4, 5)
+#' matrix_set(mat, .(1,1) ~ 5, .(3, 4) ~ 0.3)
+#' @export
+set <- function(matrix, ...){
+  UseMethod("set", matrix)
+}
 
-m(1,2,3 | 4,5,6 | 7:9) -> X
-q <- v(2,3,4,5)
+#' @export
+set.matrix <- function(matrix, ...){
+  exprs <- list(...)
 
-10 %% 3
+  is.formula <- sapply(exprs, function(x) inherits(x, 'formula'))
 
+  if(!all(is.formula))
+    stop(paste0("Following arguments are not formulae: ", exprs[!is.formula]))
 
-X %x% q
+  for(expr in exprs){
+    args <- strsplit(as.character(expr), "~", fixed = TRUE)
+    args <- args[args != ""]
+    lh <- eval(parse(text = args[[1]]))
+    rh <- as.numeric(args[[2]])
+    matrix[lh[1], lh[2]] <- rh
+  }
+  matrix
+}
 
-
-
-
+#' @importFrom Rcpp sourceCpp
+#' @useDynLib matricks, .registration = TRUE
+NULL
