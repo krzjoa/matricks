@@ -1,4 +1,4 @@
-#' @name v
+  #' @name v
 #' @title A shortcut to create a vector
 #' @description
 #' This function provides convenient shortcut
