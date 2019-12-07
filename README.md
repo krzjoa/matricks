@@ -1,4 +1,4 @@
-# matricks
+# matricks <img src='man/logo_draft2.svg' align="right" height="139" />
 > Useful tricks for algebraic computations in R.
 
 [![Documentation](https://img.shields.io/badge/documentation-matricks-orange.svg?colorB=E91E63)](http://krzjoa.github.io/matricks)
