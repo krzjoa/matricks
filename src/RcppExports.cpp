@@ -5,20 +5,22 @@
 
 using namespace Rcpp;
 
-// antidiagonal
-NumericVector antidiagonal(NumericMatrix x);
-RcppExport SEXP _matricks_antidiagonal(SEXP xSEXP) {
+// antidiag
+RObject antidiag(RObject x, Nullable<NumericVector> nrow, Nullable<NumericVector> ncol);
+RcppExport SEXP _matricks_antidiag(SEXP xSEXP, SEXP nrowSEXP, SEXP ncolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(antidiagonal(x));
+    Rcpp::traits::input_parameter< RObject >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Nullable<NumericVector> >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< Nullable<NumericVector> >::type ncol(ncolSEXP);
+    rcpp_result_gen = Rcpp::wrap(antidiag(x, nrow, ncol));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_matricks_antidiagonal", (DL_FUNC) &_matricks_antidiagonal, 1},
+    {"_matricks_antidiag", (DL_FUNC) &_matricks_antidiag, 3},
     {NULL, NULL, 0}
 };
 

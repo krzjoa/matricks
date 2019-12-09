@@ -20,6 +20,7 @@ v <- function(...){
 #' @param ... Single values, vectors, matrices
 #' and `|` as special symbol which breaks input on
 #' the rows.
+#' @returna matrix with defines elements
 #' @description
 #' One of the main functionalities of the package.
 #' It is an alternative to standard way we define
@@ -43,10 +44,8 @@ v <- function(...){
 #' x <- m(1:5 | 6:10 | 11:15 )
 #' x
 #' # We can combine multiple matrices into one
-#' i <- diag(3)
-#' a <- i * 3
-#' m(i, a|
-#'   a, i)
+#' m(diag(3),     diag(3) * 3|
+#'   diag(3) * 3, diag(3)    )
 #' @import rlang
 #' @export
 m <- function(...){

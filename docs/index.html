@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What the Package Does (Title Case) • matricks</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
+<title>Useful Functions for Working with Matrices • matricks</title>
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="What the Package Does (Title Case)">
+<script src="pkgdown.js"></script><meta property="og:title" content="Useful Functions for Working with Matrices">
 <meta property="og:description" content="More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.">
 <meta name="twitter:card" content="summary">
@@ -74,10 +74,12 @@
   <div class="contents col-md-9">
 <div id="matricks" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#matricks" class="anchor"></a>matricks</h1></div>
+<a href="#matricks" class="anchor"></a>matricks <img src="man/logo_draft2.svg" align="right" height="139">
+</h1></div>
 <blockquote>
 <p>Useful tricks for algebraic computations in R.</p>
 </blockquote>
+<p><a href="http://krzjoa.github.io/matricks"><img src="https://img.shields.io/badge/documentation-matricks-orange.svg?colorB=E91E63" alt="Documentation"></a> <a href="https://travis-ci.org/krzjoa/matricks"><img src="https://travis-ci.org/krzjoa/matricks.svg?branch=master" alt="Travis build status"></a> <a href="https://codecov.io/gh/krzjoa/matricks?branch=master"><img src="https://codecov.io/gh/krzjoa/matricks/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <a href="https://ci.appveyor.com/project/krzjoa/matricks"><img src="https://ci.appveyor.com/api/projects/status/github/krzjoa/matricks?branch=master&amp;svg=true" alt="AppVeyor build status"></a> <a href="https://www.redbubble.com/people/krzjoa/works/43111073-matricks-r-package-hex?asc=u&amp;kind=sticker&amp;p=sticker&amp;size=small"><img src="https://img.shields.io/badge/buy%20hex-matricks-green" alt="Buy hex stciker"></a></p>
 <div id="installation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h3>
@@ -93,9 +95,12 @@
 <p>if we can simply create such a matrix like that:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(matricks)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="reference/m.html">m</a></span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">9</span> <span class="op">|</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">1</span> )</a></code></pre></div>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="reference/m.html">m</a></span>(<span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span><span class="op">|</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="st">  </span><span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">9</span><span class="op">|</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">1</span>)</a></code></pre></div>
+<p>Setting values in easier with <code>matricks</code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">mat &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/pkg/matricks/man/set_values.html">set_values</a></span>(mat, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>) <span class="op">~</span><span class="st"> </span><span class="fl">0.5</span>, <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="dv">1</span>) <span class="op">~</span><span class="st"> </span><span class="dv">7</span>)</a></code></pre></div>
 </div>
 </div>
   </div>
@@ -104,7 +109,7 @@
     <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>What license is it under?</li>
+<li><a href="https://opensource.org/licenses/mit-license.php">MIT</a></li>
 </ul>
 </div>
 <div class="developers">

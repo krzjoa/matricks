@@ -35,8 +35,6 @@ x
 x <- m(1:5 | 6:10 | 11:15 )
 x
 # We can combine multiple matrices into one
-i <- diag(3)
-a <- i * 3
-m(i, a|
-  a, i)
+m(diag(3),     diag(3) * 3|
+  diag(3) * 3, diag(3)    )
 }

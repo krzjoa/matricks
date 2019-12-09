@@ -74,9 +74,3 @@ test_that("m: binding matrices", {
                 cbind(mat2, mat1))
   expect_equal(mat3, mat4)
 })
-
-
-diag()
-
-
-

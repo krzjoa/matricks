@@ -1,1 +1,24 @@
 destination: docs
+template:
+  params:
+    bootswatch: cosmo
+authors:
+  Krzysztof Joachimiak:
+    href: https://krzjoa.github.io
+reference:
+- title: Create & manipuate matrices
+  contents:
+    - m
+    - v
+    - col_bind
+    - set_values
+    - antidiag
+    - crep
+    - rrep
+- title: Operators
+  contents:
+  - '%x%'
+  - '%/%'
+  - '%+%'
+  - '%-%'
+
