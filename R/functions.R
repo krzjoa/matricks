@@ -1,5 +1,8 @@
 #' @name set_values
 #' @title Set multiple values useing one function call
+#' @param matrix a matrix object
+#  @param ... formulae; left hand values should be two-element interger vectors and right-hand: a single-value numeric
+#' @return matrix
 #' @description
 #' This functions allows to set multiple elements of a matrix
 #' instead of using annoying step-by-step assignment by
@@ -28,30 +31,35 @@ set_values<- function(matrix, ...){
   matrix
 }
 
-#' @name crep
-#' @title Repeat columns
+#' @name repetitions
+#' @title Repeat columns or rows
+#' @description Repeat matrix object respectively to its shape and orientation  
+#' @details 
+#' crep = columnwise repeat
+#' rrep = rowwise repeat                       
 #' @param x matrix
 #' @param times number of repetitions
 #' @return matrix
 #' @examples
+#' # Columnwise repetition
 #' crep(v(1:3), 4)
+#' crep(t(v(1:5)), 4)
+#' # Rowwise repetition                       
+#' rrep(v(1:3), 4)
+#' rrep(t(v(1:5)), 4)                       
+NULL
+                       
+#' @rdname repetitions                       
 #' @export
 crep <- function(x, times){
   Reduce(cbind, rep(list(x), times), NULL)
 }
-#' @name rrep
-#' @title Repeat columns
-#' @param x matrix
-#' @param times number of repetitions
-#' @return matrix
-#' @examples
-#' rrep(v(1:3), 4)
-#' rrep(t(v(1:5)), 4)
+
+#' @rdname repetitions                         
 #' @export
 rrep <- function(x, times){
   Reduce(rbind, rep(list(x), times), NULL)
 }
-
 
 #' @importFrom Rcpp sourceCpp
 #' @useDynLib matricks, .registration = TRUE
