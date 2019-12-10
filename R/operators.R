@@ -1,16 +1,25 @@
-#' @name %x%
+#' @name operators
 #' @title multiply matrix by vector rowwise/columnwise
 #' @description
-#' This operator allows to do elementwise mutliplication of
+#' This operator allows to do elementwise operation of
 #' two algebraic object i.e. matrices/vectors. There is one required condition
 #' to perform such operation: at least one domension values from both objects
 #' must be the same
 #' @param a,b matrices/vectors
 #' @return Matrix/vector
-#' @example
-#' mat <- m(1, 2, 3 | 4, 5, 6 | 7, 8, 9)
-#' vec <- v(5,4,3)
-#' mat %x% vec
+#' @examples
+#' # Multiply
+#' m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) %x% v(5,4,3)
+#' # Divide
+#' m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) %/% v(5,4,3)
+#' # Add
+#' m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) %+% v(5,4,3)
+#' # Subtract
+#' m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) %-% v(5,4,3)
+#' @export
+NULL
+
+#' @rdname operators
 #' @export
 `%x%` <- function(a, b){
   # Chech types
@@ -43,17 +52,7 @@
   }
 }
 
-#' @name %/%
-#' @title divide matrix by vector rowwise/columnwise
-#' @description
-#' This operator allows to do elementwise division of
-#' two algebraic object i.e. matrices/vectors. There is one required condition
-#' to perform such operation: at least one dimension values from both objects
-#' must be the same
-#' @param a,b matrices/vectors
-#' @return Matrix/vector
-#' @example
-#' m(1:3 | 4:6 | 7:9) %x% v(1,2,3)
+#' @rdname operators
 #' @export
 `%/%` <- function(a, b){
   # Chech types
@@ -86,8 +85,7 @@
   }
 }
 
-#' @name %-%
-#' @title subtract vector from matrix rowwise/columnwise
+#' @rdname operators
 #' @export
 `%-%` <- function(a, b){
   # Chech types
@@ -121,8 +119,7 @@
 }
 
 
-#' @name %+%
-#' @title add matrix to vector rowwise/columnwise
+#' @rdname operators
 #' @export
 `%+%` <- function(a, b){
   # Chech types
@@ -155,4 +152,33 @@
   }
 }
 
+_abstract_operator <- function(a, b, ops){
+    # Chech types
+  if(!is.matrix(a) | !is.matrix(b))
+    stop("Error! you cannot apply matrix elemntwise multipliation on non-matrix objects!")
 
+  matching.dim <- dim(a) == dim(b)
+
+  # Match dimensions
+  if(!any(matching.dim))
+    stop("Matrices dimensions don't match. ",
+         deparse(substitute(a)),": ", paste(dim(a), " "), " ,",
+         deparse(substitute(b)),": ", paste(dim(b), " "))
+
+  non.matching.dim <- !matching.dim
+  res <- dim(a)[non.matching.dim] %% dim(b)[non.matching.dim]
+
+  # Check dimensions
+  if(!(res == 0))
+    stop("Matrices dimensions don't match. ",
+         deparse(substitute(a)),": ", paste(dim(a), " "), " ,",
+         deparse(substitute(b)),": ", paste(dim(b), " "))
+
+   n.times <- dim(a)[non.matching.dim] / dim(b)[non.matching.dim]
+  
+   if(matching.dim[1]){
+    ops(a, crep(b, n.times))
+  } else {
+    ops(a, rrep(b, n.times))
+  }
+}
