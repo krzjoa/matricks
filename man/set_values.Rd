@@ -8,6 +8,8 @@ set_values(matrix, ...)
 }
 \arguments{
 \item{matrix}{a matrix object}
+
+\item{...}{formulae; left hand values should be two-element interger vectors and right-hand: a single-value numeric}
 }
 \value{
 matrix

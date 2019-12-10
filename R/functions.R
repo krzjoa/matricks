@@ -1,7 +1,7 @@
 #' @name set_values
 #' @title Set multiple values useing one function call
 #' @param matrix a matrix object
-#  @param ... formulae; left hand values should be two-element interger vectors and right-hand: a single-value numeric
+#' @param ... formulae; left hand values should be two-element interger vectors and right-hand: a single-value numeric
 #' @return matrix
 #' @description
 #' This functions allows to set multiple elements of a matrix

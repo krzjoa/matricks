@@ -6,6 +6,9 @@
 \usage{
 col_bind(...)
 }
+\arguments{
+\item{...}{single values, vectors, matrices or data.frames}
+}
 \description{
 This function works very similar to well-known base
 `cbind` function. However, there is one big difference

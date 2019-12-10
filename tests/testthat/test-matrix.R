@@ -67,8 +67,7 @@ test_that("m: binding vectors", {
 test_that("m: binding matrices", {
   mat1 <- diag(3)
   mat2 <- mat1 * 3
-
-  mat3 <- m(mat1, mat2 |
+  mat3 <- m(mat1, mat2|
             mat2, mat1)
   mat4 <- rbind(cbind(mat1, mat2),
                 cbind(mat2, mat1))

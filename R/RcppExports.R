@@ -6,11 +6,11 @@
 #' @description
 #' Extract or replace the antidiagonal of a matrix,
 #' or construct a antidiagonal matrix.
-#' @param a matrix, vector or 1D array, or missing.
+#' @param x matrix, vector or 1D array, or missing.
 #' @param ncol number of columns (optional; when x is not a matrix)
 #' @param nrow number of rows (optional; when x is not a matrix)
 #' @examples
-#' antidiag(3, 4, 4)
+#' antidiag(diag(3))
 #' @export
 antidiag <- function(x = as.numeric( c(1)), nrow = NULL, ncol = NULL) {
     .Call(`_matricks_antidiag`, x, nrow, ncol)

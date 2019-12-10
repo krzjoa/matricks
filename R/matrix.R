@@ -50,10 +50,12 @@ v <- function(...){
 #' @export
 m <- function(...){
   raw.matrix <- rlang::exprs(...)
-  chars <-  as.character(raw.matrix)
-  chars <- gsub('\\|(?![^()]*\\))', '), col_bind(', chars, perl = TRUE)
-  chars2 <- paste0('rbind(col_bind(', paste(chars, collapse = ',') ,'))')
-  eval(parse(text = chars2))
+  as.chars <-  as.character(raw.matrix)
+  as.chars <- gsub('\\|(?![^()]*\\))', '), col_bind(', as.chars, perl = TRUE)
+  transformed <- paste0('rbind(col_bind(', paste(as.chars, collapse = ',') ,'))')
+  # Search for objects!!!
+  # browser()
+  eval(parse(text = transformed), parent.frame())
 }
 
 #' @name col_bind
@@ -63,6 +65,7 @@ m <- function(...){
 #' `cbind` function. However, there is one big difference
 #' between these functions. If you pass a vector, each value
 #' will be get individually.
+#' @param ... single values, vectors, matrices or data.frames
 #' @examples
 #' cbind(1:5)
 #' col_bind(1:5)

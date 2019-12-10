@@ -7,16 +7,16 @@
 antidiag(x = as.numeric(c(1)), nrow = NULL, ncol = NULL)
 }
 \arguments{
+\item{x}{matrix, vector or 1D array, or missing.}
+
 \item{nrow}{number of rows (optional; when x is not a matrix)}
 
 \item{ncol}{number of columns (optional; when x is not a matrix)}
-
-\item{a}{matrix, vector or 1D array, or missing.}
 }
 \description{
 Extract or replace the antidiagonal of a matrix,
 or construct a antidiagonal matrix.
 }
 \examples{
-antidiag(3, 4, 4)
+antidiag(diag(3))
 }
