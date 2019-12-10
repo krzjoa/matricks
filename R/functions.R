@@ -33,10 +33,10 @@ set_values<- function(matrix, ...){
 
 #' @name repetitions
 #' @title Repeat columns or rows
-#' @description Repeat matrix object respectively to its shape and orientation  
-#' @details 
+#' @description Repeat matrix object respectively to its shape and orientation
+#' @details
 #' crep = columnwise repeat
-#' rrep = rowwise repeat                       
+#' rrep = rowwise repeat
 #' @param x matrix
 #' @param times number of repetitions
 #' @return matrix
@@ -44,23 +44,19 @@ set_values<- function(matrix, ...){
 #' # Columnwise repetition
 #' crep(v(1:3), 4)
 #' crep(t(v(1:5)), 4)
-#' # Rowwise repetition                       
+#' # Rowwise repetition
 #' rrep(v(1:3), 4)
-#' rrep(t(v(1:5)), 4)                       
+#' rrep(t(v(1:5)), 4)
 NULL
-                       
-#' @rdname repetitions                       
+
+#' @rdname repetitions
 #' @export
 crep <- function(x, times){
   Reduce(cbind, rep(list(x), times), NULL)
 }
 
-#' @rdname repetitions                         
+#' @rdname repetitions
 #' @export
 rrep <- function(x, times){
   Reduce(rbind, rep(list(x), times), NULL)
 }
-
-#' @importFrom Rcpp sourceCpp
-#' @useDynLib matricks, .registration = TRUE
-NULL

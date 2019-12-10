@@ -3,12 +3,20 @@
 \name{antidiag}
 \alias{antidiag}
 \title{Matrix antidiagonals}
+\usage{
+antidiag(x = as.numeric(c(1)), nrow = NULL, ncol = NULL)
+}
 \arguments{
-\item{a}{matrix, vector or 1D array, or missing.}
+\item{nrow}{number of rows (optional; when x is not a matrix)}
 
-\item{ncol, }{nrow optional dimensions for the result when x is not a matrix.}
+\item{ncol}{number of columns (optional; when x is not a matrix)}
+
+\item{a}{matrix, vector or 1D array, or missing.}
 }
 \description{
 Extract or replace the antidiagonal of a matrix,
 or construct a antidiagonal matrix.
+}
+\examples{
+antidiag(3, 4, 4)
 }

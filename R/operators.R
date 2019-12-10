@@ -17,10 +17,9 @@
 #' m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) %+% v(5,4,3)
 #' # Subtract
 #' m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) %-% v(5,4,3)
-#' @export
 NULL
 
-_abstract_operator <- function(a, b, ops){
+.abstract_operator <- function(a, b, ops){
    # Check types
   if(!is.matrix(a) | !is.matrix(b))
     stop("Error! you cannot apply matrix elemntwise multipliation on non-matrix objects!")
@@ -43,7 +42,7 @@ _abstract_operator <- function(a, b, ops){
          deparse(substitute(b)),": ", paste(dim(b), " "))
 
    n.times <- dim(a)[non.matching.dim] / dim(b)[non.matching.dim]
-  
+
    if(matching.dim[1]){
     ops(a, crep(b, n.times))
   } else {
@@ -54,23 +53,23 @@ _abstract_operator <- function(a, b, ops){
 #' @rdname operators
 #' @export
 `%x%` <- function(a, b){
-  _abstract_operator(a, b, `*`)
+  .abstract_operator(a, b, `*`)
 }
 
 #' @rdname operators
 #' @export
 `%/%` <- function(a, b){
-   _abstract_operator(a, b, `/`)
+  .abstract_operator(a, b, `/`)
 }
 
 #' @rdname operators
 #' @export
 `%-%` <- function(a, b){
-   _abstract_operator(a, b, `-`)
+  .abstract_operator(a, b, `-`)
 }
 
 #' @rdname operators
 #' @export
 `%+%` <- function(a, b){
-  _abstract_operator(a, b, `+`)
+  .abstract_operator(a, b, `+`)
 }

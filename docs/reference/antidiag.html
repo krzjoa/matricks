@@ -8,6 +8,13 @@
 
 <title>Matrix antidiagonals — antidiag • matricks</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -38,6 +45,7 @@
 <meta property="og:title" content="Matrix antidiagonals — antidiag" />
 <meta property="og:description" content="Extract or replace the antidiagonal of a matrix,
 or construct a antidiagonal matrix." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,7 +78,7 @@ or construct a antidiagonal matrix." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">matricks</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -123,26 +131,34 @@ or construct a antidiagonal matrix." />
 or construct a antidiagonal matrix.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>antidiag</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>)), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>a</th>
-      <td><p>matrix, vector or 1D array, or missing.</p></td>
+      <th>nrow</th>
+      <td><p>number of rows (optional; when x is not a matrix)</p></td>
     </tr>
     <tr>
-      <th>ncol, </th>
-      <td><p>nrow optional dimensions for the result when x is not a matrix.</p></td>
+      <th>ncol</th>
+      <td><p>number of columns (optional; when x is not a matrix)</p></td>
+    </tr>
+    <tr>
+      <th>a</th>
+      <td><p>matrix, vector or 1D array, or missing.</p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>antidiag</span>(<span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in antidiag(3, 4, 4): Index out of bounds: [index=1; extent=1].</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
@@ -151,7 +167,7 @@ or construct a antidiagonal matrix.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by <a href='https://krzjoa.github.io'>Krzysztof Joachimiak</a>.</p>
 </div>
 
 <div class="pkgdown">

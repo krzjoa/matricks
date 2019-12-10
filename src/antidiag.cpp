@@ -52,9 +52,10 @@ NumericMatrix antidiag_matrix(NumericVector x,
 //' Extract or replace the antidiagonal of a matrix,
 //' or construct a antidiagonal matrix.
 //' @param a matrix, vector or 1D array, or missing.
-//' @param ncol, nrow optional dimensions for the result when x is not a matrix.
-//' @details antidiag has four distinct usages:
-//' 1. x is a matrix, when it extracts the antidiagonal.on
+//' @param ncol number of columns (optional; when x is not a matrix)
+//' @param nrow number of rows (optional; when x is not a matrix)
+//' @examples
+//' antidiag(3, 4, 4)
 //' @export
 // [[Rcpp::export]]
 RObject antidiag(RObject x = NumericVector::create(1),

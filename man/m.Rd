@@ -11,6 +11,9 @@ m(...)
 and `|` as special symbol which breaks input on
 the rows.}
 }
+\value{
+matrix with defines elements
+}
 \description{
 One of the main functionalities of the package.
 It is an alternative to standard way we define

@@ -7,16 +7,10 @@
 #' Extract or replace the antidiagonal of a matrix,
 #' or construct a antidiagonal matrix.
 #' @param a matrix, vector or 1D array, or missing.
-#' @param ncol, nrow optional dimensions for the result when x is not a matrix.
-#' @details
-#' diag has four distinct usages:
-#' \enumerate{
-#' \item x is a matrix, when it extracts the antidiagonal.
-#' \item x is missing and nrow is specified, it returns an antidiagonal identity matrix.
-#' \item x is a scalar (length-one vector) and the only argument, it returns a square antidiagonal identity matrix of size given by the scalar.
-#' \item x is a ‘numeric’ (complex, numeric, integer, logical, or raw) vector, either of length at least 2 or there were further arguments. This returns a matrix with the given antidiagonal and zero off-antidiagonal entries.
-NULL
-
+#' @param ncol number of columns (optional; when x is not a matrix)
+#' @param nrow number of rows (optional; when x is not a matrix)
+#' @examples
+#' antidiag(3, 4, 4)
 #' @export
 antidiag <- function(x = as.numeric( c(1)), nrow = NULL, ncol = NULL) {
     .Call(`_matricks_antidiag`, x, nrow, ncol)

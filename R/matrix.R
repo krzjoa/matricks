@@ -20,7 +20,7 @@ v <- function(...){
 #' @param ... Single values, vectors, matrices
 #' and `|` as special symbol which breaks input on
 #' the rows.
-#' @returna matrix with defines elements
+#' @return matrix with defines elements
 #' @description
 #' One of the main functionalities of the package.
 #' It is an alternative to standard way we define

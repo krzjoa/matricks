@@ -6,6 +6,12 @@
 \usage{
 set_values(matrix, ...)
 }
+\arguments{
+\item{matrix}{a matrix object}
+}
+\value{
+matrix
+}
 \description{
 This functions allows to set multiple elements of a matrix
 instead of using annoying step-by-step assignment by

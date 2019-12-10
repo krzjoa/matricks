@@ -1,9 +1,9 @@
 Package: matricks
 Type: Package
-Title: Samrt & Useful Functions for Working with Matrices
+Title: Smart & Useful Functions for Working with Matrices
 Version: 0.2.0
 Author: Krzysztof Joachimiak
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: Krzysztof Joachimiak <joachimiak.krzysztof@gmail.com>
 Description: This package contains functions, which facilitates matrix creation and manipulation.
 License: MIT
 Encoding: UTF-8
