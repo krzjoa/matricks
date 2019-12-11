@@ -1,5 +1,5 @@
 # matricks <img src='man/figures/logo.png ' align="right" height="139" />
-> Useful tricks for algebraic computations in R.
+> Useful tricks for matrix manipulation in R.
 
 [![Documentation](https://img.shields.io/badge/documentation-matricks-orange.svg?colorB=E91E63)](http://krzjoa.github.io/matricks)
 [![Travis build status](https://travis-ci.org/krzjoa/matricks.svg?branch=master)](https://travis-ci.org/krzjoa/matricks)
