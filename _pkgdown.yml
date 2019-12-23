@@ -11,14 +11,15 @@ reference:
     - m
     - v
     - col_bind
-    - set_values
-    - antidiag
+    - row_bind
     - crep
     - rrep
+    - set_values
+    - antidiag
 - title: Operators
   contents:
   - '%x%'
-  - '%/%'
+  - '%//%'
   - '%+%'
   - '%-%'
 
