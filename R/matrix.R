@@ -56,7 +56,7 @@ m <- function(...){
   eval(parse(text = transformed), parent.frame())
 }
 
-#' @name col_bind
+#' @name binding
 #' @title Bind vector, single values and matrices
 #' @description
 #' This function works very similar to well-known base
@@ -65,40 +65,35 @@ m <- function(...){
 #' will be get individually.
 #' @param ... single values, vectors, matrices or data.frames
 #' @examples
+#' # `col_bind` vs `cbind`
 #' cbind(1,2,3,4,5)
 #' col_bind(1,2,3,4,5)
 #' cbind(1:5)
 #' col_bind(1:5)
-#' @export
-col_bind <- function(...){
-  fun <- function(x, y){
-    y <- if(!is.matrix(y)) as.list(y) else list(y)
-    c(x, y)
-  }
-  input <- Reduce(fun, list(...), list())
-  do.call('cbind', input)
-}
-
-#' @name row_bind
-#' @title Bind vector, single values and matrices
-#' @description
-#' This function works very similar to well-known base
-#' `rbind` function. However, there is one big difference
-#' between these functions. If you pass a vector, each value
-#' will be get individually.
-#' @param ... single values, vectors, matrices or data.frames
-#' @examples
+#' # `row_bind` vs `rbind`
 #' rbind(1,2,3,4,5)
 #' row_bind(1,2,3,4,5)
 #' rbind(1:5)
 #' row_bind(1:5)
-#' @export
-row_bind <- function(...){
+NULL
+
+.abstract_bind <- function(..., fun.name){
   fun <- function(x, y){
     y <- if (!is.matrix(y)) as.list(y) else list(y)
     c(x, y)
   }
   input <- Reduce(fun, list(...), list())
-  do.call('rbind', input)
+  do.call(fun.name, input)
 }
 
+#' @rdname binding
+#' @export
+col_bind <- function(...){
+  .abstract_bind(..., fun.name = 'cbind')
+}
+
+#' @rdname binding
+#' @export
+row_bind <- function(...){
+  .abstract_bind(..., fun.name = 'rbind')
+}
