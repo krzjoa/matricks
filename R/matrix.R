@@ -65,6 +65,8 @@ m <- function(...){
 #' will be get individually.
 #' @param ... single values, vectors, matrices or data.frames
 #' @examples
+#' cbind(1,2,3,4,5)
+#' col_bind(1,2,3,4,5)
 #' cbind(1:5)
 #' col_bind(1:5)
 #' @export
@@ -76,3 +78,27 @@ col_bind <- function(...){
   input <- Reduce(fun, list(...), list())
   do.call('cbind', input)
 }
+
+#' @name row_bind
+#' @title Bind vector, single values and matrices
+#' @description
+#' This function works very similar to well-known base
+#' `rbind` function. However, there is one big difference
+#' between these functions. If you pass a vector, each value
+#' will be get individually.
+#' @param ... single values, vectors, matrices or data.frames
+#' @examples
+#' rbind(1,2,3,4,5)
+#' row_bind(1,2,3,4,5)
+#' rbind(1:5)
+#' row_bind(1:5)
+#' @export
+row_bind <- function(...){
+  fun <- function(x, y){
+    y <- if (!is.matrix(y)) as.list(y) else list(y)
+    c(x, y)
+  }
+  input <- Reduce(fun, list(...), list())
+  do.call('rbind', input)
+}
+
