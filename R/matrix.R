@@ -53,8 +53,6 @@ m <- function(...){
   as.chars <-  as.character(raw.matrix)
   as.chars <- gsub('\\|(?![^()]*\\))', '), col_bind(', as.chars, perl = TRUE)
   transformed <- paste0('rbind(col_bind(', paste(as.chars, collapse = ',') ,'))')
-  # Search for objects!!!
-  # browser()
   eval(parse(text = transformed), parent.frame())
 }
 
