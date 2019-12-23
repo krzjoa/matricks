@@ -70,11 +70,15 @@ m <- function(...){
 #' col_bind(1,2,3,4,5)
 #' cbind(1:5)
 #' col_bind(1:5)
+#' cbind(matrix(3, 3, 3), 0.33, 4:7)
+#' col_bind(matrix(3, 3, 3), 0.33, 4:7)
 #' # `row_bind` vs `rbind`
 #' rbind(1,2,3,4,5)
 #' row_bind(1,2,3,4,5)
 #' rbind(1:5)
 #' row_bind(1:5)
+#' rbind(matrix(3, 3, 3), 0.33, 4:7)
+#' row_bind(matrix(3, 3, 3), 0.33, 4:7)
 NULL
 
 .abstract_bind <- function(..., fun.name){
