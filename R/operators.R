@@ -52,7 +52,7 @@ NULL
 
 #' @rdname operators
 #' @export
-`%x%` <- function(a, b){
+`%o%` <- function(a, b){
   .abstract_operator(a, b, `*`)
 }
 
