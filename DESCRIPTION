@@ -1,13 +1,14 @@
 Package: matricks
 Type: Package
-Title: Useful Functions for Working with Matrices
+Title: Useful Tricks for Matrix Manipulation in R.
 Version: 0.2.0
-Author: Krzysztof Joachimiak
+Author: Krzysztof Joachimiak <joachimiak.krzysztof@gmail.com>
 Maintainer: Krzysztof Joachimiak <joachimiak.krzysztof@gmail.com>
 Description: This package contains functions, which facilitates matrix creation and manipulation.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+BugReports: https://github.com/krzjoa/matricks/issues
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
