@@ -22,8 +22,9 @@ matrix
 Repeat matrix object respectively to its shape and orientation
 }
 \details{
-crep = columnwise repeat
-rrep = rowwise repeat
+crep = columnwise repetition
+
+rrep = rowwise repetition
 }
 \examples{
 # Columnwise repetition

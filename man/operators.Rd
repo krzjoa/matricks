@@ -2,15 +2,15 @@
 % Please edit documentation in R/operators.R
 \name{operators}
 \alias{operators}
-\alias{\%x\%}
-\alias{\%/\%}
+\alias{\%o\%}
+\alias{\%//\%}
 \alias{\%-\%}
 \alias{\%+\%}
 \title{Binary operations on matrices/vectors}
 \usage{
-a \%x\% b
+a \%o\% b
 
-a \%/\% b
+a \%//\% b
 
 a \%-\% b
 
@@ -32,9 +32,9 @@ must be the same
 }
 \examples{
 # Multiply
-m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) \%x\% v(5,4,3)
+m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) \%o\% v(5,4,3)
 # Divide
-m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) \%/\% v(5,4,3)
+m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) \%//\% v(5,4,3)
 # Add
 m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) \%+\% v(5,4,3)
 # Subtract

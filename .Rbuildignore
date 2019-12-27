@@ -6,3 +6,4 @@
 ^pkgdown$
 ^codecov\.yml$
 ^appveyor\.yml$
+^LICENSE\.md$

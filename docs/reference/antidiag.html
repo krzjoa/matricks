@@ -137,6 +137,10 @@ or construct a antidiagonal matrix.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>x</th>
+      <td><p>matrix, vector or 1D array, or missing.</p></td>
+    </tr>
+    <tr>
       <th>nrow</th>
       <td><p>number of rows (optional; when x is not a matrix)</p></td>
     </tr>
@@ -144,15 +148,11 @@ or construct a antidiagonal matrix.</p>
       <th>ncol</th>
       <td><p>number of columns (optional; when x is not a matrix)</p></td>
     </tr>
-    <tr>
-      <th>a</th>
-      <td><p>matrix, vector or 1D array, or missing.</p></td>
-    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>antidiag</span>(<span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in antidiag(3, 4, 4): Index out of bounds: [index=1; extent=1].</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>antidiag</span>(<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>))</div><div class='output co'>#&gt; [1] 0 1 0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

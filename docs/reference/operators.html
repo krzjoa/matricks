@@ -135,9 +135,9 @@ to perform such operation: at least one domension values from both objects
 must be the same</p>
     </div>
 
-    <pre class="usage"><span class='no'>a</span> <span class='kw'>%x%</span> <span class='no'>b</span>
+    <pre class="usage"><span class='no'>a</span> <span class='kw'>%o%</span> <span class='no'>b</span>
 
-<span class='no'>a</span> <span class='kw'>%/%</span> <span class='no'>b</span>
+<span class='no'>a</span> <span class='kw'>%//%</span> <span class='no'>b</span>
 
 <span class='no'>a</span> <span class='kw'>%-%</span> <span class='no'>b</span>
 
@@ -162,11 +162,11 @@ must be the same</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Multiply</span>
-<span class='fu'><a href='m.html'>m</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span> <span class='kw'>|</span> <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span> <span class='kw'>|</span> <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>) <span class='kw'>%x%</span> <span class='fu'><a href='v.html'>v</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='fu'><a href='m.html'>m</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span> <span class='kw'>|</span> <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span> <span class='kw'>|</span> <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>) <span class='kw'>%o%</span> <span class='fu'><a href='v.html'>v</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    5   10   15
 #&gt; [2,]   16   20   24
 #&gt; [3,]   21   24   27</div><div class='input'><span class='co'># Divide</span>
-<span class='fu'><a href='m.html'>m</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span> <span class='kw'>|</span> <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span> <span class='kw'>|</span> <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>) <span class='kw'>%/%</span> <span class='fu'><a href='v.html'>v</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>)</div><div class='output co'>#&gt;          [,1]     [,2] [,3]
+<span class='fu'><a href='m.html'>m</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span> <span class='kw'>|</span> <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span> <span class='kw'>|</span> <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>) <span class='kw'>%//%</span> <span class='fu'><a href='v.html'>v</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>)</div><div class='output co'>#&gt;          [,1]     [,2] [,3]
 #&gt; [1,] 0.200000 0.400000  0.6
 #&gt; [2,] 1.000000 1.250000  1.5
 #&gt; [3,] 2.333333 2.666667  3.0</div><div class='input'><span class='co'># Add</span>

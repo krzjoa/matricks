@@ -22,7 +22,6 @@ NumericMatrix antidiag_matrix(NumericVector x,
   int n_row = 1;
   int n_col = 1;
 
-  // NumericMatrix matrix(3, 3);
   if(x.length() > 1){
     n_row = x.length();
     n_col = x.length();
@@ -39,8 +38,9 @@ NumericMatrix antidiag_matrix(NumericVector x,
   NumericMatrix matrix(n_row, n_col);
 
   // Insert values
-  for(int i=0; i<n_row; i++){
-    matrix(i, n_row - 1 - i) = x(i);
+  for(int i=0; i < n_row; i++){
+    int index = i % x.length();
+    matrix(i, n_row - 1 - i) = x(index);
   }
 
   return matrix;
@@ -56,11 +56,14 @@ NumericMatrix antidiag_matrix(NumericVector x,
 //' @param nrow number of rows (optional; when x is not a matrix)
 //' @examples
 //' antidiag(diag(3))
+//' antidiag(7, 3, 3)
+//' antidiag(1:5, 3, 2)
 //' @export
 // [[Rcpp::export]]
 RObject antidiag(RObject x = NumericVector::create(1),
                  Nullable<NumericVector> nrow = R_NilValue,
                  Nullable<NumericVector> ncol = R_NilValue){
+  // TODO: Behaviour when nrow != ncol
   if(Rf_isMatrix(x)){
     return antidiagonal((NumericMatrix) x);
   } else if(Rf_isNumeric(x)){

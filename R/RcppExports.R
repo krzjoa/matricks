@@ -11,6 +11,8 @@
 #' @param nrow number of rows (optional; when x is not a matrix)
 #' @examples
 #' antidiag(diag(3))
+#' antidiag(7, 3, 3)
+#' antidiag(1:5, 3, 2)
 #' @export
 antidiag <- function(x = as.numeric( c(1)), nrow = NULL, ncol = NULL) {
     .Call(`_matricks_antidiag`, x, nrow, ncol)

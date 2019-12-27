@@ -35,8 +35,9 @@ set_values<- function(matrix, ...){
 #' @title Repeat columns or rows
 #' @description Repeat matrix object respectively to its shape and orientation
 #' @details
-#' crep = columnwise repeat
-#' rrep = rowwise repeat
+#' crep = columnwise repetition
+#'
+#' rrep = rowwise repetition
 #' @param x matrix
 #' @param times number of repetitions
 #' @return matrix
