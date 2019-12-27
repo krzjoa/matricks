@@ -11,7 +11,8 @@
 devtools::install_github('krzjoa/matricks')
 ```
 ### Usage
-Main `matricks` funcions are `m` and `v`, which provide convenient API to create matrices and vectors.  Why should we write:
+Main `matricks` functions are `m` and `v`, which provide convenient API to create matrices and vectors.  
+Why should we write:
 ```r
 matrix(c(5, 6, 7,
          8, 0, 9,
@@ -25,12 +26,19 @@ m(5, 6, 7|
   8, 0, 9|
   3, 7, 1)
 ```
+
+`v` function is an useful shortcut for creating vertical vectors (single columns)
+```r
+v(1,2,3)
+v(1:5)
+```
+
 Setting values in easier with `matricks`
 ```r
 mat <- matrix(0, 3, 3)
 set_values(mat, c(1, 2) ~ 0.5, c(3, 1) ~ 7)
 ```
       
-      
+
       
 

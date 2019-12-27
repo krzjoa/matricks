@@ -18,8 +18,8 @@ reference:
     - antidiag
 - title: Operators
   contents:
-  - '%o%'
-  - '%//%'
+  - '%m%'
+  - '%d%'
   - '%+%'
   - '%-%'
 

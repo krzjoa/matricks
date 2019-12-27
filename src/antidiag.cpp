@@ -57,7 +57,7 @@ NumericMatrix antidiag_matrix(NumericVector x,
 //' @examples
 //' antidiag(diag(3))
 //' antidiag(7, 3, 3)
-//' antidiag(1:5, 3, 2)
+//' antidiag(1:5, 3, 3)
 //' @export
 // [[Rcpp::export]]
 RObject antidiag(RObject x = NumericVector::create(1),

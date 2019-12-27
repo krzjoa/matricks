@@ -2,8 +2,8 @@
 
 export("%+%")
 export("%-%")
-export("%//%")
-export("%o%")
+export("%d%")
+export("%m%")
 export(antidiag)
 export(col_bind)
 export(crep)
