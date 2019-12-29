@@ -64,18 +64,21 @@ rrep <- function(x, times){
 
 #' @name neighbour_idx
 #' @title Get all indices in neighbourhood
-#' @description Get list of indices, that are neighbour for the given one
 #' @param mat matrix or data.frame
 #' @param idx two-element vector
 #' @param mask logical matrix; optional
-#' @examples
+#' @param diagonal include diagonal neighbours
+#' @param include.idx include current index
+#' @example
 #' mat <- matrix(0, 3, 3)
 #' neighbour_idx(mat, c(1, 2))
+#' neighbour_idx(mat, c(1, 2), diagonal = FALSE)
+#' neighbour_idx(mat, c(1, 2), diagonal = FALSE, include.idx = TRUE)
 #' # With mask
 #' mat <- matrix(0, 3, 4)
 #' mask <- m(F, F, T, T | F, F, F, F | T, T, F, T)
 #' neighbour_idx(mat, c(1, 2), mask = mask)
-neighbour_idx <- function(mat, idx, mask = NULL){
+neighbour_idx <- function(mat, idx, mask = NULL, diagonal = TRUE, include.idx = FALSE){
   n.row <- nrow(mat)
   n.col <- ncol(mat)
   nidx <- NULL
@@ -86,6 +89,13 @@ neighbour_idx <- function(mat, idx, mask = NULL){
 
   for (i in min.row:max.row) {
     for (j in min.col:max.col) {
+
+      if (!include.idx & idx[1] == i & idx[2] == j)
+        next
+
+      if (!diagonal & (abs(idx[1]-i) + abs(idx[2] - j)) == 2)
+        next
+
       if (!is.null(mask)) {
         if (mask[i, j])
           nidx <- c(nidx, list(c(i, j)))
