@@ -18,9 +18,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// antidiag_assign
+RObject antidiag_assign(NumericMatrix x, NumericVector value);
+RcppExport SEXP _matricks_antidiag_assign(SEXP xSEXP, SEXP valueSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type value(valueSEXP);
+    rcpp_result_gen = Rcpp::wrap(antidiag_assign(x, value));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_matricks_antidiag", (DL_FUNC) &_matricks_antidiag, 3},
+    {"_matricks_antidiag_assign", (DL_FUNC) &_matricks_antidiag_assign, 2},
     {NULL, NULL, 0}
 };
 

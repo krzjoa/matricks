@@ -3,18 +3,35 @@
 
 #' @name antidiag
 #' @title Matrix antidiagonals
+#' @usage
+#' antidiag(x = 1, nrow, ncol)
+#' antidiag(x) <- value
 #' @description
 #' Extract or replace the antidiagonal of a matrix,
 #' or construct a antidiagonal matrix.
 #' @param x matrix, vector or 1D array, or missing.
 #' @param ncol number of columns (optional; when x is not a matrix)
 #' @param nrow number of rows (optional; when x is not a matrix)
+#' @param value either a single value or a vector of length equal to that of the current antidiagonal.
+#' Should be of a mode which can be coerced to that of x.
 #' @examples
+#' # Extracting antidiag
 #' antidiag(diag(3))
+#' # Creating antidiagonal matrix
 #' antidiag(7, 3, 3)
 #' antidiag(1:5, 3, 3)
+#' # Assigning antidiagonal
+#' mat <- matrix(0, 3, 3)
+#' antidiag(mat) <- c(3, 4, 5)
+#' mat
 #' @export
 antidiag <- function(x = as.numeric( c(1)), nrow = NULL, ncol = NULL) {
     .Call(`_matricks_antidiag`, x, nrow, ncol)
+}
+
+#' @rdname antidag
+#' @export
+`antidiag<-` <- function(x, value) {
+    .Call(`_matricks_antidiag_assign`, x, value)
 }
 

@@ -61,3 +61,39 @@ crep <- function(x, times){
 rrep <- function(x, times){
   Reduce(rbind, rep(list(x), times), NULL)
 }
+
+#' @name neighbour_idx
+#' @title Get all indices in neighbourhood
+#' @description Get list of indices, that are neighbour for the given one
+#' @param mat matrix or data.frame
+#' @param idx two-element vector
+#' @param mask logical matrix; optional
+#' @examples
+#' mat <- matrix(0, 3, 3)
+#' neighbour_idx(mat, c(1, 2))
+#' # With mask
+#' mat <- matrix(0, 3, 4)
+#' mask <- m(F, F, T, T | F, F, F, F | T, T, F, T)
+#' neighbour_idx(mat, c(1, 2), mask = mask)
+neighbour_idx <- function(mat, idx, mask = NULL){
+  n.row <- nrow(mat)
+  n.col <- ncol(mat)
+  nidx <- NULL
+  min.row <- max(1, idx[1]-1)
+  max.row <- min(n.row, idx[1] + 1)
+  min.col <- max(1, idx[2] - 1)
+  max.col <- min(n.col, idx[2] + 1)
+
+  for (i in min.row:max.row) {
+    for (j in min.col:max.col) {
+      if (!is.null(mask)) {
+        if (mask[i, j])
+          nidx <- c(nidx, list(c(i, j)))
+      } else {
+        nidx <- c(nidx, list(c(i, j)))
+      }
+    }
+  }
+  nidx
+}
+

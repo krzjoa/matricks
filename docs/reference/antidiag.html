@@ -78,7 +78,7 @@ or construct a antidiagonal matrix." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">matricks</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -104,6 +104,9 @@ or construct a antidiagonal matrix." />
       <a href="../articles/matrices_and_vectors.html">Creating matrices and vectors</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -131,7 +134,8 @@ or construct a antidiagonal matrix." />
 or construct a antidiagonal matrix.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>antidiag</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>)), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>antidiag</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>nrow</span>, <span class='no'>ncol</span>)
+<span class='fu'>antidiag</span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>value</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,17 +152,30 @@ or construct a antidiagonal matrix.</p>
       <th>ncol</th>
       <td><p>number of columns (optional; when x is not a matrix)</p></td>
     </tr>
+    <tr>
+      <th>value</th>
+      <td><p>either a single value or a vector of length equal to that of the current antidiagonal.
+Should be of a mode which can be coerced to that of x.</p></td>
+    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>antidiag</span>(<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>))</div><div class='output co'>#&gt; [1] 0 1 0</div><div class='input'><span class='fu'>antidiag</span>(<span class='fl'>7</span>, <span class='fl'>3</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+    <pre class="examples"><div class='input'><span class='co'># Extracting antidiag</span>
+<span class='fu'>antidiag</span>(<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>))</div><div class='output co'>#&gt; [1] 0 1 0</div><div class='input'><span class='co'># Creating antidiagonal matrix</span>
+<span class='fu'>antidiag</span>(<span class='fl'>7</span>, <span class='fl'>3</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    0    0    7
 #&gt; [2,]    0    7    0
 #&gt; [3,]    7    0    0</div><div class='input'><span class='fu'>antidiag</span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>3</span>, <span class='fl'>3</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    0    0    1
 #&gt; [2,]    0    2    0
-#&gt; [3,]    3    0    0</div></pre>
+#&gt; [3,]    3    0    0</div><div class='input'><span class='co'># Assigning antidiagonal</span>
+<span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>, <span class='fl'>3</span>)
+<span class='fu'>antidiag</span>(<span class='no'>mat</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span>)
+<span class='no'>mat</span></div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    0    0    3
+#&gt; [2,]    0    4    0
+#&gt; [3,]    5    0    0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

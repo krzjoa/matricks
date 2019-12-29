@@ -15,6 +15,7 @@ reference:
     - crep
     - rrep
     - set_values
+    - neighbour_idx
     - antidiag
 - title: Operators
   contents:
