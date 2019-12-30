@@ -1,6 +1,6 @@
 Package: matricks
 Type: Package
-Title: Useful Tricks for Matrix Manipulation in R.
+Title: Useful Tricks for Matrix Manipulation in R
 Version: 0.4.0
 Author: Krzysztof Joachimiak <joachimiak.krzysztof@gmail.com>
 Maintainer: Krzysztof Joachimiak <joachimiak.krzysztof@gmail.com>

@@ -48,9 +48,6 @@ NumericMatrix antidiag_matrix(NumericVector x,
 
 //' @name antidiag
 //' @title Matrix antidiagonals
-//' @usage
-//' antidiag(x = 1, nrow, ncol)
-//' antidiag(x) <- value
 //' @description
 //' Extract or replace the antidiagonal of a matrix,
 //' or construct a antidiagonal matrix.
@@ -84,7 +81,7 @@ RObject antidiag(RObject x = NumericVector::create(1),
   }
 }
 
-//' @rdname antidag
+//' @rdname antidiag
 //' @export
 // [[Rcpp::export(name = `antidiag<-`)]]
 RObject antidiag_assign(NumericMatrix x, NumericVector value){

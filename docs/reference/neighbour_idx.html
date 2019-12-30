@@ -43,7 +43,7 @@
 
 
 <meta property="og:title" content="Get all indices in neighbourhood — neighbour_idx" />
-<meta property="og:description" content="Get list of indices, that are neighbour for the given one" />
+<meta property="og:description" content="Get all indices in neighbourhood" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -129,10 +129,11 @@
     </div>
 
     <div class="ref-description">
-    <p>Get list of indices, that are neighbour for the given one</p>
+    <p>Get all indices in neighbourhood</p>
     </div>
 
-    <pre class="usage"><span class='fu'>neighbour_idx</span>(<span class='no'>mat</span>, <span class='no'>idx</span>, <span class='kw'>mask</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>neighbour_idx</span>(<span class='no'>mat</span>, <span class='no'>idx</span>, <span class='kw'>mask</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>diagonal</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>include.idx</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,12 +150,20 @@
       <th>mask</th>
       <td><p>logical matrix; optional</p></td>
     </tr>
+    <tr>
+      <th>diagonal</th>
+      <td><p>include diagonal neighbours</p></td>
+    </tr>
+    <tr>
+      <th>include.idx</th>
+      <td><p>include current index</p></td>
+    </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>, <span class='fl'>3</span>)
-<span class='fu'>neighbour_idx</span>(<span class='no'>mat</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='error'>Error in neighbour_idx(mat, c(1, 2)): nie udało się znaleźć funkcji 'neighbour_idx'</span></div><div class='input'><span class='co'># With mask</span>
+<span class='fu'>neighbour_idx</span>(<span class='no'>mat</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='error'>Error in neighbour_idx(mat, c(1, 2)): nie udało się znaleźć funkcji 'neighbour_idx'</span></div><div class='input'><span class='fu'>neighbour_idx</span>(<span class='no'>mat</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>diagonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in neighbour_idx(mat, c(1, 2), diagonal = FALSE): nie udało się znaleźć funkcji 'neighbour_idx'</span></div><div class='input'><span class='fu'>neighbour_idx</span>(<span class='no'>mat</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>diagonal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>include.idx</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in neighbour_idx(mat, c(1, 2), diagonal = FALSE, include.idx = TRUE): nie udało się znaleźć funkcji 'neighbour_idx'</span></div><div class='input'><span class='co'># With mask</span>
 <span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>, <span class='fl'>4</span>)
 <span class='no'>mask</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='m.html'>m</a></span>(<span class='no'>F</span>, <span class='no'>F</span>, <span class='no'>T</span>, <span class='no'>T</span> <span class='kw'>|</span> <span class='no'>F</span>, <span class='no'>F</span>, <span class='no'>F</span>, <span class='no'>F</span> <span class='kw'>|</span> <span class='no'>T</span>, <span class='no'>T</span>, <span class='no'>F</span>, <span class='no'>T</span>)
 <span class='fu'>neighbour_idx</span>(<span class='no'>mat</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>mask</span> <span class='kw'>=</span> <span class='no'>mask</span>)</div><div class='output co'>#&gt; <span class='error'>Error in neighbour_idx(mat, c(1, 2), mask = mask): nie udało się znaleźć funkcji 'neighbour_idx'</span></div></pre>

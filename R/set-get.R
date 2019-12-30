@@ -14,6 +14,7 @@
 #' set_values(mat, c(1,1) ~ 5, c(3, 4) ~ 0.3)
 #' @export
 set_values<- function(matrix, ...){
+
   exprs <- list(...)
 
   is.formula <- sapply(exprs, function(x) inherits(x, 'formula'))
@@ -31,36 +32,46 @@ set_values<- function(matrix, ...){
   matrix
 }
 
-#' @name repetitions
-#' @title Repeat columns or rows
-#' @description Repeat matrix object respectively to its shape and orientation
-#' @details
-#' crep = columnwise repetition
-#'
-#' rrep = rowwise repetition
-#' @param x matrix
-#' @param times number of repetitions
-#' @return matrix
+#' @rdname set_values
+#' @export
+sv <- set_values
+
+#' @name at
+#' @title Set or get matrix value at index vector
+#' @description This function allows to access matrix values by passing indices as vector
+#' @param mat matrix
+#' @param idx two-element integer vector
+#' @param value a value to be assign at index
 #' @examples
-#' # Columnwise repetition
-#' crep(v(1:3), 4)
-#' crep(t(v(1:5)), 4)
-#' # Rowwise repetition
-#' rrep(v(1:3), 4)
-#' rrep(t(v(1:5)), 4)
+#' mat <- matrix(0, 3, 3)
+#' idx <- c(1, 2)
+#' # Typically, given matrix and row-column indices as two-element vector, we should do it like this:
+#' mat[idx[1], idx[2]]
+#' mat[idx[1], idx[2]] <- 8
+#' # Using `at`, we can do it simplier!
+#' at(mat, idx)
+#' at(mat, idx) <- 7
+#' mat
+#' at(mat, idx)
 NULL
 
-#' @rdname repetitions
+#' @rdname at
 #' @export
-crep <- function(x, times){
-  Reduce(cbind, rep(list(x), times), NULL)
+at <- function(mat, idx){
+  if (length(idx) > 2)
+    stop("Index vector should have lenght equal to 2")
+  mat[idx[1], idx[2]]
 }
 
-#' @rdname repetitions
+#' @rdname at
 #' @export
-rrep <- function(x, times){
-  Reduce(rbind, rep(list(x), times), NULL)
+`at<-` <- function(mat, idx, value){
+  if (length(idx) > 2)
+    stop("Index vector should have lenght equal to 2")
+  mat[idx[1], idx[2]] <- value
+  mat
 }
+
 
 #' @name neighbour_idx
 #' @title Get all indices in neighbourhood
@@ -69,7 +80,7 @@ rrep <- function(x, times){
 #' @param mask logical matrix; optional
 #' @param diagonal include diagonal neighbours
 #' @param include.idx include current index
-#' @example
+#' @examples
 #' mat <- matrix(0, 3, 3)
 #' neighbour_idx(mat, c(1, 2))
 #' neighbour_idx(mat, c(1, 2), diagonal = FALSE)
@@ -106,4 +117,3 @@ neighbour_idx <- function(mat, idx, mask = NULL, diagonal = TRUE, include.idx = 
   }
   nidx
 }
-

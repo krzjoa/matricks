@@ -1,3 +1,7 @@
+# matricks 0.5.0
+* `at` and `at<-` functions added
+* refactoring and bugfixes
+
 # matricks 0.4.0
 * `antidiag<-` function added
 * `neighbour_idx` function added

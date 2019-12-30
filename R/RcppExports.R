@@ -3,9 +3,6 @@
 
 #' @name antidiag
 #' @title Matrix antidiagonals
-#' @usage
-#' antidiag(x = 1, nrow, ncol)
-#' antidiag(x) <- value
 #' @description
 #' Extract or replace the antidiagonal of a matrix,
 #' or construct a antidiagonal matrix.
@@ -29,7 +26,7 @@ antidiag <- function(x = as.numeric( c(1)), nrow = NULL, ncol = NULL) {
     .Call(`_matricks_antidiag`, x, nrow, ncol)
 }
 
-#' @rdname antidag
+#' @rdname antidiag
 #' @export
 `antidiag<-` <- function(x, value) {
     .Call(`_matricks_antidiag_assign`, x, value)

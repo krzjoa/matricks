@@ -2,9 +2,11 @@
 % Please edit documentation in R/RcppExports.R
 \name{antidiag}
 \alias{antidiag}
+\alias{antidiag<-}
 \title{Matrix antidiagonals}
 \usage{
-antidiag(x = 1, nrow, ncol)
+antidiag(x = as.numeric(c(1)), nrow = NULL, ncol = NULL)
+
 antidiag(x) <- value
 }
 \arguments{

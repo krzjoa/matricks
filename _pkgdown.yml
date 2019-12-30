@@ -6,7 +6,7 @@ authors:
   Krzysztof Joachimiak:
     href: https://krzjoa.github.io
 reference:
-- title: Create & manipuate matrices
+- title: Create, bind & repeat
   contents:
     - m
     - v
@@ -14,9 +14,12 @@ reference:
     - row_bind
     - crep
     - rrep
-    - set_values
-    - neighbour_idx
-    - antidiag
+- title: Get & set elements
+  contents:
+  - set_values
+  - at
+  - antidiag
+  - neighbour_idx
 - title: Operators
   contents:
   - '%m%'
