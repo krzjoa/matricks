@@ -89,6 +89,7 @@ at <- function(mat, idx){
 #' mat <- matrix(0, 3, 4)
 #' mask <- m(F, F, T, T | F, F, F, F | T, T, F, T)
 #' neighbour_idx(mat, c(1, 2), mask = mask)
+#' @export
 neighbour_idx <- function(mat, idx, mask = NULL, diagonal = TRUE, include.idx = FALSE){
   n.row <- nrow(mat)
   n.col <- ncol(mat)
