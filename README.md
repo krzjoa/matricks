@@ -16,7 +16,7 @@ Why should we write:
 ```r
 matrix(c(5, 6, 7,
          8, 0, 9,
-         3, 7, 1), nrow = 3, bycol = TRUE)
+         3, 7, 1), nrow = 3, byrow = TRUE)
 ```
 if we can simply create such a matrix like that:
 ```r
