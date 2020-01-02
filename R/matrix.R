@@ -1,5 +1,5 @@
 #' @name v
-#' @title A shortcut to create a vector
+#' @title A shortcut to create a vertical vector
 #' @description
 #' This function provides convenient shortcut
 #' to create a vertical (column) vector.
