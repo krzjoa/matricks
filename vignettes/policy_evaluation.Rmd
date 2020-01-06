@@ -1,0 +1,112 @@
+---
+title: "Use case: Iterative Policy Evaluation (Reinforcement Learning)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{matrices_and_vectors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+In this vignette, we'll present a real-life use case, which shows how the `matricks` package makes the work with matrices easier. 
+
+Let's try to implement an algorithm from the field of **Reinforcement Learning** called *iterative policy evaluation*. The environment we will work on is a simple **Grid World** game.
+
+```{r setup}
+library(matricks)
+library(R6)
+library(ggplot2)
+```
+
+## Implementing environment
+
+```{r grid.world}
+grid_world <- R6Class(
+  classname = 'grid_world',
+  
+  public = list(
+    
+    # Default values
+    width = 5,
+    height = 5,
+    i = 1,
+    j = 1,
+    rewards = NA, 
+    actions = NA, # Possible actions
+    
+    initialize = function(width, height, start){
+      self$width <- width
+      self$height <- height
+      self$i <- start[1]
+      self$j <- start[2]
+    },
+    
+    set = function(actions, rewards){
+      self$rewards <- rewards
+      self$actions <- actions  
+    },
+    
+    set_state = function(s){
+      self$i <- s[1]
+      self$j <- s[2]
+    },
+    
+    is_terminal = function(s){
+      self$actions[s[1], s[2]]
+    },
+    
+    game_over = function(){
+      !self$actions[self$i, self$j]
+    }
+  )
+)
+```
+
+## Initializing environment
+
+We initialize
+
+```{r init.gid.world}
+grid <- grid_world$new(width  = 6,
+                       height = 5,
+                       start  = c(1, 1))
+
+actions <- m(T, T, T, F, T|
+             T, T, F, T, T|
+             F, T, T, T, F|
+             T, T, T, T, T|
+             F, F, T, T, T|
+             F, T, T, T, F)
+
+x <- actions
+#x <- as.data.frame(actions)
+x <- reshape2::melt(x)
+
+ggplot(x, aes(x = Var2, y = Var1)) + 
+  geom_raster(aes(fill = value)) + theme(
+  panel.background = element_rect(fill = NA),
+  panel.ontop = TRUE
+)
+
+
+#' @name plot_matrix
+#' @title Plot a matrix
+#' @description This function allows us to plot 
+plot_matrix <- function(x, ..., show.grid = ){
+  x <- reshape2::melt(x)
+  ggplot(x, aes(x = Var2, y = Var1)) + 
+    geom_raster(aes(fill = value)) + theme(
+  panel.background = element_rect(fill = NA),
+  panel.ontop = TRUE
+)
+}
+
+
+```
+
