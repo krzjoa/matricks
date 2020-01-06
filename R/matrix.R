@@ -56,4 +56,16 @@ m <- function(...){
   eval(parse(text = transformed), parent.frame())
 }
 
-
+#' @name with_same_dims
+#' @title Create new matrix copying dimensions from the existing one
+#' @param mat a matrix with desired dimensions
+#' @param data sigle numeric value or numeric vector
+#' @examples
+#' x <- matrix(7, 3, 6)
+#' x
+#' with_same_dims(x, 0)
+#'with_same_dims(x, c(1, 2))
+#' @export
+with_same_dims <- function(mat, data) {
+  matrix(data = data, nrow = nrow(mat), ncol = ncol(mat))
+}
