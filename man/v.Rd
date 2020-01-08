@@ -2,7 +2,7 @@
 % Please edit documentation in R/matrix.R
 \name{v}
 \alias{v}
-\title{A shortcut to create a vector}
+\title{A shortcut to create a vertical vector}
 \usage{
 v(...)
 }

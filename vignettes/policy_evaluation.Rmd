@@ -95,44 +95,19 @@ x2 <- reshape2::melt(x)
 #   mutate(Var1 = Var1 + .5) %>% 
 #   mutate(Var2 = Var2 + .5) 
 
-ggplot(data = x2, aes(x=Var1, y=Var2, fill=value)) + 
+ggplot(data = x2, aes(x=Var1, y=Var2, fill=value)) +
   geom_tile() +
-  scale_x_continuous(breaks = 1:ncol(x) + 0.5, labels = 1:ncol(x)) +
-  scale_y_continuous(breaks = 1:nrow(x) + 0.5, labels = 1:nrow(x)) +
+  scale_x_continuous(minor_breaks = 1:ncol(x) + 0.5, breaks = 0:ncol(x) + 1) +
+  # scale_y_continuous(breaks = 1:nrow(x) + 0.5, labels = 1:nrow(x)) +
    theme(
     panel.background = element_rect(fill = NA),
-    panel.ontop = TRUE
-) + 
-coord_equal()
-
-ggplot(x2, aes(x = Var2, y = Var1)) + 
-  geom_raster(aes(fill = value)) + 
-  scale_x_continuous(breaks = 1:ncol(x), labels = 1:ncol(x)) +
-  scale_y_continuous(breaks = 1:nrow(x), labels = 1:nrow(x)) +
-  theme(
-    panel.background = element_rect(fill = NA),
-    panel.ontop = TRUE
-) + 
-coord_equal()
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.ontop = TRUE) +
+  coord_equal()
 
 
-#' @name plot_matrix
-#' @title Plot a matrix
-#' @description This function allows us to plot 
-plot_matrix <- function(x, ..., show.grid = ){
-  x <- reshape2::melt(x)
-  ggplot(x, aes(x = Var2, y = Var1)) + 
-    geom_raster(aes(fill = value)) + theme(
-  panel.background = element_rect(fill = NA),
-  panel.ontop = TRUE
-)
-}
 
-df <- data.frame(x = 1, y = 1:3, z = 1:3)
-base <- ggplot(df, aes(x, y)) + geom_raster(aes(fill = z))
-base 
-base + scale_fill_continuous(guide = guide_legend())
-base + guides(fill = guide_legend())
 
 
 ```
