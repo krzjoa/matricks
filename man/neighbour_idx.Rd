@@ -28,6 +28,8 @@ neighbour_idx(mat, c(1, 2), diagonal = FALSE)
 neighbour_idx(mat, c(1, 2), diagonal = FALSE, include.idx = TRUE)
 # With mask
 mat <- matrix(0, 3, 4)
-mask <- m(F, F, T, T | F, F, F, F | T, T, F, T)
+mask <- m(FALSE, FALSE, TRUE, TRUE |
+          FALSE, FALSE, FALSE, FALSE |
+          TRUE, TRUE, FALSE, TRUE)
 neighbour_idx(mat, c(1, 2), mask = mask)
 }

@@ -2,5 +2,5 @@ pandoc: 2.3.1
 pkgdown: 1.4.0
 pkgdown_sha: ~
 articles:
-  matrices_and_vectors: matrices_and_vectors.html
+  policy_evaluation: policy_evaluation.html
 

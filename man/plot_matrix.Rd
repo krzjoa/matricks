@@ -9,6 +9,28 @@ plot_matrix(x, ...)
 
 \method{plot}{matrix}(x, ...)
 }
+\arguments{
+\item{x}{a matrix}
+
+\item{...}{for S3 generic API consistency; does nothing}
+}
+\value{
+a ggplot object
+}
 \description{
-This function allows us to plot
+This function allows us to plot matrices easily
+}
+\examples{
+x1 <- m(T, T, T, F, T |
+        T, T, F, T, T |
+        F, T, T, T, F |
+        T, T, T, T, T |
+        F, F, T, T, T |
+        F, T, T, T, F)
+plot_matrix(x1)
+x2 <- m(T, T, T, F, T |
+        T, T, F, T, T )
+plot(x2)
+x3 <- m(runif(3) | runif(3) | runif(3))
+plot(x3)
 }

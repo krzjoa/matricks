@@ -5,7 +5,7 @@
 \alias{\%m\%}
 \alias{\%d\%}
 \alias{\%-\%}
-\alias{\%+\%}
+\alias{\%+\%.matrix}
 \title{Binary operations on matrices/vectors}
 \usage{
 a \%m\% b
@@ -14,7 +14,7 @@ a \%d\% b
 
 a \%-\% b
 
-a \%+\% b
+"\%+\%.matrix"(a, b)
 }
 \arguments{
 \item{a}{matrix/vector}

@@ -14,6 +14,9 @@ reference:
     - row_bind
     - crep
     - rrep
+    - with_same_dims
+    - runifm
+    - rboolm
 - title: Get & set elements
   contents:
   - set_values
@@ -26,4 +29,8 @@ reference:
   - '%d%'
   - '%+%'
   - '%-%'
+- title: Plots
+  contents:
+  - plot_matrix
+  - plot.matrix
 

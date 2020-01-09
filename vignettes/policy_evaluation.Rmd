@@ -70,13 +70,21 @@ grid_world <- R6Class(
 
 ## Initializing environment
 
-We initialize
+We initialize environment, using following functions from matrix package:
+ 
+ * `m()`
+ * `plot.matrix()`
+ * `sv()`
+ * `with_same_dims()`
 
 ```{r init.gid.world}
+# Creating grid_world instance
 grid <- grid_world$new(width  = 6,
                        height = 5,
                        start  = c(1, 1))
 
+# Defining possible actions
+# FALSE = unavailable field
 actions <- m(T, T, T, F, T|
              T, T, F, T, T|
              F, T, T, T, F|
@@ -84,31 +92,24 @@ actions <- m(T, T, T, F, T|
              F, F, T, T, T|
              F, T, T, T, F)
 
-#https://rpubs.com/lgadar/matrix-visualizations
-  #https://stackoverflow.com/questions/33989595/overlay-grid-rather-than-draw-on-top-of-it
+plot(actions)
+# Defining rewards matrix with two terminal states
+rewards <- with_same_dims(actions, 0)
+rewards <- sv(rewards,
+              c(4, 4) ~ 1.,
+              c(5, 3) ~ -1)
 
-x <- actions
-#x <- as.data.frame(actions)
-x2 <- reshape2::melt(x)
+plot(rewards)
 
-# x2 <- x2 %>% 
-#   mutate(Var1 = Var1 + .5) %>% 
-#   mutate(Var2 = Var2 + .5) 
-
-ggplot(data = x2, aes(x=Var1, y=Var2, fill=value)) +
-  geom_tile() +
-  scale_x_continuous(minor_breaks = 1:ncol(x) + 0.5, breaks = 0:ncol(x) + 1) +
-  # scale_y_continuous(breaks = 1:nrow(x) + 0.5, labels = 1:nrow(x)) +
-   theme(
-    panel.background = element_rect(fill = NA),
-    panel.grid.major.x = element_blank(),
-    panel.grid.major.y = element_blank(),
-    panel.ontop = TRUE) +
-  coord_equal()
-
-
-
-
+grid$set(actions = actions,
+         rewards = rewards)
 
 ```
+## Setting fixed policy
 
+```{r fixed.policy}
+
+  # plot(rewards) + 
+  # geom_segment(arrow = TRUE)
+
+```

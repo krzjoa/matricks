@@ -11,6 +11,9 @@ with_same_dims(mat, data)
 
 \item{data}{sigle numeric value or numeric vector}
 }
+\value{
+a matrix
+}
 \description{
 Create new matrix copying dimensions from the existing one
 }
