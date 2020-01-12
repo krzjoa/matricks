@@ -103,24 +103,3 @@ rboolm <- function(nrow, ncol, true.proba = 0.5){
   n <- nrow * ncol
   matrix(runif(n = n), nrow = nrow, ncol = ncol) <= true.proba
 }
-
-
-flow_matrix <- function(...){
-
-  # Special symbols
-  U <- "U"
-  D <- "D"
-  L <- "L"
-  R <- "R"
-
-  raw.matrix <- rlang::exprs(...)
-  as.chars <-  as.character(raw.matrix)
-  as.chars <- gsub('\\|(?![^()]*\\))', '), col_bind(', as.chars, perl = TRUE)
-  transformed <- paste0('rbind(col_bind(', paste(as.chars, collapse = ',') ,'))')
-  eval(parse(text = transformed), environment())
-}
-
-
-flow_matrix(U, U, U | D, L, R)
-
-

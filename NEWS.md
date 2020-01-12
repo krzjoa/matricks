@@ -1,15 +1,16 @@
 # matricks 0.6.0
 * Added:
   * `with_same_dims()`
-  * `plot_matrix` and `plot.matrix()`
-  * `runifm`
-  * `rboolm`
+  * `plot_matrix()` and `plot.matrix()`
+  * `runifm()`
+  * `rboolm()`
+  
 # matricks 0.5.0
-* `at()` and `at<-`() functions added
+* `at()` and `at<-` functions added
 * refactoring and bugfixes
 
 # matricks 0.4.0
-* `antidiag<-`() function added
+* `antidiag<-` function added
 * `neighbour_idx()` function added
 
 # matricks 0.3.0  

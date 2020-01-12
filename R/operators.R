@@ -70,6 +70,6 @@ NULL
 
 #' @rdname operators
 #' @export
-`%+%.matrix` <- function(a, b){
+`%+%` <- function(a, b){
   .abstract_operator(a, b, `+`)
 }

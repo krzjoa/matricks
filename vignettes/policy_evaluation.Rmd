@@ -33,23 +33,20 @@ grid_world <- R6Class(
   public = list(
     
     # Default values
-    width = 5,
-    height = 5,
     i = 1,
     j = 1,
     rewards = NA, 
     actions = NA, # Possible actions
     
-    initialize = function(width, height, start){
-      self$width <- width
-      self$height <- height
+    initialize = function(actions, rewards, start){
+      
+      if (!identical(dim(actions), dim(rewards)))
+        stop("Matrices have different shapes!")
+      
+      self$actions <- actions
+      self$rewards <- rewards
       self$i <- start[1]
       self$j <- start[2]
-    },
-    
-    set = function(actions, rewards){
-      self$rewards <- rewards
-      self$actions <- actions  
     },
     
     set_state = function(s){
@@ -78,11 +75,6 @@ We initialize environment, using following functions from matrix package:
  * `with_same_dims()`
 
 ```{r init.gid.world}
-# Creating grid_world instance
-grid <- grid_world$new(width  = 6,
-                       height = 5,
-                       start  = c(1, 1))
-
 # Defining possible actions
 # FALSE = unavailable field
 actions <- m(T, T, T, F, T|
@@ -91,25 +83,167 @@ actions <- m(T, T, T, F, T|
              T, T, T, T, T|
              F, F, T, T, T|
              F, T, T, T, F)
-
 plot(actions)
 # Defining rewards matrix with two terminal states
 rewards <- with_same_dims(actions, 0)
 rewards <- sv(rewards,
               c(4, 4) ~ 1.,
-              c(5, 3) ~ -1)
-
+              c(5, 3) ~ 1)
 plot(rewards)
+rewards[rewards == 0] <- -0.1
 
-grid$set(actions = actions,
-         rewards = rewards)
+# Creating grid_world instance
+grid <- grid_world$new(actions = actions,
+                       rewards = rewards,
+                       start  = c(1, 1))
 
 ```
 ## Setting fixed policy
 
-```{r fixed.policy}
+**Policy** defines a set of moves we should perform, in order to achieve the best result in the game.
+We start with a fixed policy values.
 
-  # plot(rewards) + 
-  # geom_segment(arrow = TRUE)
+```{r fixed.policy}
+# Symbols for moves
+U <- "U"
+D <- "D"
+L <- "L"
+R <- "R"
+
+fixed.policy <- m(R , D , L , NA, D |
+                  R , D , NA, D , L |
+                  NA, R , D , L , NA|
+                  R , R , D , NA, D |
+                  NA, NA, NA, L , L |
+                  NA, R , U , L , NA)
+
+as_idx <- function(x){
+  n.row <- nrow(x)
+  n.col <- ncol(x)
+
+  result <- matrix(list(), nrow = n.row, ncol = n.col)
+
+  for (i in 1:n.row){
+    for (j in 1:n.col){
+      coords <- c(i, j)
+      
+      if (is.na(at(x, coords)))
+        next
+      
+      x.val <- x[i, j]
+
+      switch (x.val,
+        U = c(i - 1, j),
+        D = c(i + 1, j),
+        L = c(i, j - 1),
+        R = c(i, j + 1),
+      ) -> move.idx
+
+      if (!is_idx_possible(x, move.idx))
+        next
+
+      result[i, j] <- list(move.idx)
+    }
+  }
+  result
+}
+
+fixed.policy.idx <- as_idx(fixed.policy)
+fixed.policy.idx
+
+states <- matrix_idx(grid$actions, 
+                     grid$actions)
 
 ```
+
+## Policy evaluation function
+```{r policy.evaluation}
+# evaluate_policy <- function(grid, policy, states,  gamma = 0.9, epsilon = 1e-4){
+#   V <- with_same_dims(policy, 0)
+#   V[!grid$actions] <- NA
+#   # V[grid$rewards == -0.1] <- NA
+#   
+#   while (TRUE) {
+#     biggest.change <- 0
+# 
+#     for (s in states) {
+#       old.v <- at(V, s)
+#       
+#       # Iterating matrix
+#       for (item in seq_matrix(policy)){
+#         a <- item[[1]]
+#         
+#         if(is.null(a))
+#           next
+#         
+#         position <- item[[2]]
+#         r <- at(grid$rewards, a)
+#         
+#         # print(position)
+#         # print(r + gamma * at(V, a))
+#         
+#         at(V, position) <- r + gamma * at(V, a)
+#         biggest.change <- max(biggest.change, abs(old.v - at(V, position)))
+#       }
+#     }
+#     print(V)
+#     if (biggest.change < epsilon)
+#       break
+#   }
+#   V
+# }
+```
+
+
+## Experiment
+```{r experiment}
+#evaluate_policy(grid, policy = fixed.policy.idx, states = states)
+epsilon <- 0.5
+V <- with_same_dims(fixed.policy, 0)
+V[!grid$actions] <- NA
+V[!grid$rewards == -0.1] <- 0
+gamma <- 0.9
+
+while (TRUE) {
+  biggest.change <- 0
+
+  for (s in states) {
+    
+    if (is.na(at(V, s)))
+      next
+    
+    old.v <- at(V, s)
+    
+    # Iterating matrix
+    for (item in seq_matrix(fixed.policy.idx)){
+      a <- item[[1]]
+      position <- item[[2]]
+      
+      if(is.null(a))
+        next
+      r <- at(grid$rewards, a)
+      
+      # print(paste0(r, " ", gamma, " ", at(V, a)))
+      # print(r + gamma * at(V, a))
+      
+      at(V, position) <- r + gamma * at(V, a)
+      biggest.change <- max(biggest.change, abs(old.v - at(V, position)))
+      # print(biggest.change)
+    }
+  }
+  
+ 
+  
+  if (biggest.change < epsilon){
+    print("TRolo")
+    break
+  }
+    
+  
+   print(V)
+}
+# V
+
+
+```
+
