@@ -103,3 +103,4 @@ rboolm <- function(nrow, ncol, true.proba = 0.5){
   n <- nrow * ncol
   matrix(runif(n = n), nrow = nrow, ncol = ncol) <= true.proba
 }
+

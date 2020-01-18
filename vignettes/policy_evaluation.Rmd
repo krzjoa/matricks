@@ -20,49 +20,6 @@ Let's try to implement an algorithm from the field of **Reinforcement Learning**
 
 ```{r setup}
 library(matricks)
-library(R6)
-library(ggplot2)
-```
-
-## Implementing environment
-
-```{r grid.world}
-grid_world <- R6Class(
-  classname = 'grid_world',
-  
-  public = list(
-    
-    # Default values
-    i = 1,
-    j = 1,
-    rewards = NA, 
-    actions = NA, # Possible actions
-    
-    initialize = function(actions, rewards, start){
-      
-      if (!identical(dim(actions), dim(rewards)))
-        stop("Matrices have different shapes!")
-      
-      self$actions <- actions
-      self$rewards <- rewards
-      self$i <- start[1]
-      self$j <- start[2]
-    },
-    
-    set_state = function(s){
-      self$i <- s[1]
-      self$j <- s[2]
-    },
-    
-    is_terminal = function(s){
-      self$actions[s[1], s[2]]
-    },
-    
-    game_over = function(){
-      !self$actions[self$i, self$j]
-    }
-  )
-)
 ```
 
 ## Initializing environment
@@ -79,7 +36,7 @@ We initialize environment, using following functions from matrix package:
 # FALSE = unavailable field
 actions <- m(T, T, T, F, T|
              T, T, F, T, T|
-             F, T, T, T, F|
+             F, T, T, T, T|
              T, T, T, T, T|
              F, F, T, T, T|
              F, T, T, T, F)
@@ -88,14 +45,9 @@ plot(actions)
 rewards <- with_same_dims(actions, 0)
 rewards <- sv(rewards,
               c(4, 4) ~ 1.,
-              c(5, 3) ~ 1)
+              c(5, 3) ~ -1)
 plot(rewards)
 rewards[rewards == 0] <- -0.1
-
-# Creating grid_world instance
-grid <- grid_world$new(actions = actions,
-                       rewards = rewards,
-                       start  = c(1, 1))
 
 ```
 ## Setting fixed policy
@@ -112,9 +64,9 @@ R <- "R"
 
 fixed.policy <- m(R , D , L , NA, D |
                   R , D , NA, D , L |
-                  NA, R , D , L , NA|
+                  NA, R , D , D , D|
                   R , R , D , NA, D |
-                  NA, NA, NA, L , L |
+                  NA, NA, NA, U , L |
                   NA, R , U , L , NA)
 
 as_idx <- function(x){
@@ -158,91 +110,68 @@ states <- matrix_idx(grid$actions,
 
 ## Policy evaluation function
 ```{r policy.evaluation}
-# evaluate_policy <- function(grid, policy, states,  gamma = 0.9, epsilon = 1e-4){
-#   V <- with_same_dims(policy, 0)
-#   V[!grid$actions] <- NA
-#   # V[grid$rewards == -0.1] <- NA
-#   
-#   while (TRUE) {
-#     biggest.change <- 0
+# actions2 <- m(T, T, T, F|
+#               T, F, T, F|
+#               T, T, T, T)
 # 
-#     for (s in states) {
-#       old.v <- at(V, s)
-#       
-#       # Iterating matrix
-#       for (item in seq_matrix(policy)){
-#         a <- item[[1]]
-#         
-#         if(is.null(a))
-#           next
-#         
-#         position <- item[[2]]
-#         r <- at(grid$rewards, a)
-#         
-#         # print(position)
-#         # print(r + gamma * at(V, a))
-#         
-#         at(V, position) <- r + gamma * at(V, a)
-#         biggest.change <- max(biggest.change, abs(old.v - at(V, position)))
-#       }
-#     }
-#     print(V)
-#     if (biggest.change < epsilon)
-#       break
-#   }
-#   V
-# }
+# rewards2 <- with_same_dims(actions2, 0)
+# rewards2 <- sv(rewards2,
+#               c(1, 4) ~ 1.,
+#               c(2, 4) ~ -1)
+# rewards2[rewards2 == 0] <- -0.1
+# 
+# fixed.policy <- m(R, R, R, NA |
+#           U, NA, R, NA|
+#           U, R, R, U)
+# fixed.policy.idx <- as_idx(fixed.policy)
+# 
+# grid <- grid_world$new(actions = actions2,
+#                        rewards = rewards2,
+#                        start = c(1, 1))
+# 
+# states <- matrix_idx(grid$actions,
+#                      grid$actions)
+
 ```
 
 
 ## Experiment
 ```{r experiment}
 #evaluate_policy(grid, policy = fixed.policy.idx, states = states)
-epsilon <- 0.5
+# Diagnoza: xle działa funckja seq_matrix!!!
+epsilon <- 1e-3
 V <- with_same_dims(fixed.policy, 0)
-V[!grid$actions] <- NA
-V[!grid$rewards == -0.1] <- 0
 gamma <- 0.9
 
 while (TRUE) {
   biggest.change <- 0
 
-  for (s in states) {
-    
-    if (is.na(at(V, s)))
+  for (move in seq_matrix(fixed.policy.idx)) {
+    s <- move[[1]] # Action, value at index s
+    a <- move[[2]]
+ 
+    old.v <- at(V, s)
+      
+    if(!at(actions, s))
       next
     
-    old.v <- at(V, s)
-    
-    # Iterating matrix
-    for (item in seq_matrix(fixed.policy.idx)){
-      a <- item[[1]]
-      position <- item[[2]]
+    if(is.null(a))
+      next
       
-      if(is.null(a))
-        next
-      r <- at(grid$rewards, a)
-      
-      # print(paste0(r, " ", gamma, " ", at(V, a)))
-      # print(r + gamma * at(V, a))
-      
-      at(V, position) <- r + gamma * at(V, a)
-      biggest.change <- max(biggest.change, abs(old.v - at(V, position)))
-      # print(biggest.change)
-    }
+    r <- at(rewards, a)
+    at(V, s) <- r + gamma * at(V, a)
+    biggest.change <- max(biggest.change, abs(old.v - at(V, s)))
   }
   
- 
+  print(biggest.change)
   
   if (biggest.change < epsilon){
-    print("TRolo")
     break
   }
     
-  
-   print(V)
+
 }
-# V
+V
 
 
 ```

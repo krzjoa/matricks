@@ -157,7 +157,20 @@ matrix_idx <- function(x, n.row = NULL, n.col = NULL, mask = NULL){
 #' iter_matrix(mat)
 #' @export
 seq_matrix <- function(mat){
-  coord.val <-  reshape2::melt(mat)
-  coord.val$coord <- purrr::map2(coord.val$Var1, coord.val$Var2, ~ c(.x, .y))
-  purrr::map2(coord.val$value, coord.val$coord, ~ list(.x, .y))
+  # browser()
+  Var1 <- list()
+  Var2 <- list()
+
+  for(i in 1:nrow(mat)){
+    for(j in 1:ncol(mat)){
+      Var1 <- c(Var1, list(c(i, j)))
+      Var2 <- c(Var2, list(mat[[i, j]]))
+    }
+  }
+
+  # browser()
+
+  # coord.val <-  reshape2::melt(mat)
+  # coord.val$coord <- purrr::map2(Var1, Var2, ~ c(.x, .y))
+  purrr::map2(Var1, Var2, ~ list(.x, .y))
 }
