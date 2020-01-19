@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">matricks</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -93,97 +93,155 @@
     
     
 <p>In this vignette, we’ll present a real-life use case, which shows how the <code>matricks</code> package makes the work with matrices easier.</p>
-<p>Let’s try to implement an algorithm from the field of <strong>Reinforcement Learning</strong> called <em>iterative policy evaluation</em>. The environment we will work on is a simple <strong>Grid World</strong> game.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(matricks)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(R6)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a></code></pre></div>
-<div id="implementing-environment" class="section level2">
-<h2 class="hasAnchor">
-<a href="#implementing-environment" class="anchor"></a>Implementing environment</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">grid_world &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class</a></span>(</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="dt">classname =</span> <span class="st">'grid_world'</span>,</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">  </a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="dt">public =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    </a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="co"># Default values</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="dt">width =</span> <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">    <span class="dt">height =</span> <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="dt">i =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">    <span class="dt">j =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="dt">rewards =</span> <span class="ot">NA</span>, </a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">    <span class="dt">actions =</span> <span class="ot">NA</span>, <span class="co"># Possible actions</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">    </a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">    <span class="dt">initialize =</span> <span class="cf">function</span>(width, height, start){</a>
-<a class="sourceLine" id="cb2-15" data-line-number="15">      self<span class="op">$</span>width &lt;-<span class="st"> </span>width</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16">      self<span class="op">$</span>height &lt;-<span class="st"> </span>height</a>
-<a class="sourceLine" id="cb2-17" data-line-number="17">      self<span class="op">$</span>i &lt;-<span class="st"> </span>start[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">      self<span class="op">$</span>j &lt;-<span class="st"> </span>start[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">    },</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">    </a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">    <span class="dt">set =</span> <span class="cf">function</span>(actions, rewards){</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">      self<span class="op">$</span>rewards &lt;-<span class="st"> </span>rewards</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">      self<span class="op">$</span>actions &lt;-<span class="st"> </span>actions  </a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">    },</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">    </a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">    <span class="dt">set_state =</span> <span class="cf">function</span>(s){</a>
-<a class="sourceLine" id="cb2-27" data-line-number="27">      self<span class="op">$</span>i &lt;-<span class="st"> </span>s[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb2-28" data-line-number="28">      self<span class="op">$</span>j &lt;-<span class="st"> </span>s[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb2-29" data-line-number="29">    },</a>
-<a class="sourceLine" id="cb2-30" data-line-number="30">    </a>
-<a class="sourceLine" id="cb2-31" data-line-number="31">    <span class="dt">is_terminal =</span> <span class="cf">function</span>(s){</a>
-<a class="sourceLine" id="cb2-32" data-line-number="32">      self<span class="op">$</span>actions[s[<span class="dv">1</span>], s[<span class="dv">2</span>]]</a>
-<a class="sourceLine" id="cb2-33" data-line-number="33">    },</a>
-<a class="sourceLine" id="cb2-34" data-line-number="34">    </a>
-<a class="sourceLine" id="cb2-35" data-line-number="35">    <span class="dt">game_over =</span> <span class="cf">function</span>(){</a>
-<a class="sourceLine" id="cb2-36" data-line-number="36">      <span class="op">!</span>self<span class="op">$</span>actions[self<span class="op">$</span>i, self<span class="op">$</span>j]</a>
-<a class="sourceLine" id="cb2-37" data-line-number="37">    }</a>
-<a class="sourceLine" id="cb2-38" data-line-number="38">  )</a>
-<a class="sourceLine" id="cb2-39" data-line-number="39">)</a></code></pre></div>
-</div>
+<p>Let’s try to implement an algorithm from the field of <strong>Reinforcement Learning</strong> called <em>iterative policy evaluation</em>. The environment we will work on is a simple <strong>Grid World</strong> game. This vignette was inspired by a Reinforcement Learning course by <a href="https://github.com/lazyprogrammer">Lazy Programmer</a>, originally written in Python.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(matricks)</a></code></pre></div>
 <div id="initializing-environment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#initializing-environment" class="anchor"></a>Initializing environment</h2>
-<p>We initialize environment, using following functions from matrix package:</p>
-<ul>
-<li><code><a href="../reference/m.html">m()</a></code></li>
-<li><code><a href="../reference/plot_matrix.html">plot.matrix()</a></code></li>
-<li><code><a href="../reference/set_values.html">sv()</a></code></li>
-<li><code><a href="../reference/with_same_dims.html">with_same_dims()</a></code></li>
-</ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Creating grid_world instance</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">grid &lt;-<span class="st"> </span>grid_world<span class="op">$</span><span class="kw">new</span>(<span class="dt">width  =</span> <span class="dv">6</span>,</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">                       <span class="dt">height =</span> <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">                       <span class="dt">start  =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># Defining possible actions</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># FALSE = unavailable field</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">actions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/m.html">m</a></span>(T, T, T, F, T<span class="op">|</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">             </span>T, T, F, T, T<span class="op">|</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">             </span>F, T, T, T, F<span class="op">|</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="st">             </span>T, T, T, T, T<span class="op">|</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="st">             </span>F, F, T, T, T<span class="op">|</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">             </span>F, T, T, T, F)</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(actions)</a></code></pre></div>
+<p>We initialize environment, using following functions from matrix package: * <code><a href="../reference/m.html">m()</a></code> * <code><a href="../reference/matrix_idx.html">matrix_idx()</a></code> * <code><a href="../reference/plot_matrix.html">plot.matrix()</a></code> * <code><a href="../reference/seq_matrix.html">seq_matrix()</a></code> * <code><a href="../reference/set_values.html">sv()</a></code> * <code><a href="../reference/with_same_dims.html">with_same_dims()</a></code></p>
+<p>We construct matrices, describing game environment: * <strong>actions</strong> - all the possible moves * <strong>rewards</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Defining possible actions</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># FALSE = unavailable field</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">actions &lt;-<span class="st"> </span><span class="kw"><a href="../reference/m.html">m</a></span>(T, T, T, F, T<span class="op">|</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">             </span>T, T, F, T, T<span class="op">|</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="st">             </span>F, T, T, T, T<span class="op">|</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">             </span>T, T, T, T, T<span class="op">|</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">             </span>F, F, T, T, T<span class="op">|</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">             </span>F, T, T, T, F)</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(actions)</a></code></pre></div>
 <p><img src="policy_evaluation_files/figure-html/init.gid.world-1.png" width="700"></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Defining rewards matrix with two terminal states</span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">rewards &lt;-<span class="st"> </span><span class="kw"><a href="../reference/with_same_dims.html">with_same_dims</a></span>(actions, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">rewards &lt;-<span class="st"> </span><span class="kw"><a href="../reference/set_values.html">sv</a></span>(rewards,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">              <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">4</span>) <span class="op">~</span><span class="st"> </span><span class="fl">1.</span>,</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">              <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="op">~</span><span class="st"> </span><span class="dv">-1</span>)</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rewards)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Defining rewards matrix with two terminal states</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">rewards &lt;-<span class="st"> </span><span class="kw"><a href="../reference/with_same_dims.html">with_same_dims</a></span>(actions, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">rewards &lt;-<span class="st"> </span><span class="kw"><a href="../reference/set_values.html">sv</a></span>(rewards,</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">              <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">4</span>, <span class="dv">4</span>) <span class="op">~</span><span class="st"> </span><span class="fl">1.</span>, <span class="co"># Win</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">              <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5</span>, <span class="dv">3</span>) <span class="op">~</span><span class="st"> </span><span class="dv">-1</span>) <span class="co"># Lose</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co"># We add small penalties, which encourages models</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co"># to reduce number of steps it passes </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">rewards[rewards <span class="op">==</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="fl">-0.1</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(rewards)</a></code></pre></div>
 <p><img src="policy_evaluation_files/figure-html/init.gid.world-2.png" width="700"></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">grid<span class="op">$</span><span class="kw">set</span>(<span class="dt">actions =</span> actions,</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">         <span class="dt">rewards =</span> rewards)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># List of possible state indices</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">states &lt;-<span class="st"> </span><span class="kw"><a href="../reference/matrix_idx.html">matrix_idx</a></span>(actions, actions)</a></code></pre></div>
 </div>
 <div id="setting-fixed-policy" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setting-fixed-policy" class="anchor"></a>Setting fixed policy</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="co"># plot(rewards) + </span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="co"># geom_segment(arrow = TRUE)</span></a></code></pre></div>
+<p><strong>Policy</strong> defines a set of moves we should perform, in order to achieve the best result in the game. We start with a fixed policy values.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Symbols for moves</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">U &lt;-<span class="st"> "U"</span> <span class="co"># Up</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">D &lt;-<span class="st"> "D"</span> <span class="co"># Down</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">L &lt;-<span class="st"> "L"</span> <span class="co"># Left</span></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">R &lt;-<span class="st"> "R"</span> <span class="co"># Right</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">fixed.policy &lt;-<span class="st"> </span><span class="kw"><a href="../reference/m.html">m</a></span>(R , D , L , <span class="ot">NA</span>, D <span class="op">|</span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="st">                  </span>R , D , <span class="ot">NA</span>, D , L <span class="op">|</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="st">                  </span><span class="ot">NA</span>, R , D , D , D <span class="op">|</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="st">                  </span>R , R , D , <span class="ot">NA</span>, D <span class="op">|</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="st">                  </span><span class="ot">NA</span>, <span class="ot">NA</span>, <span class="ot">NA</span>, U , L <span class="op">|</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="st">                  </span><span class="ot">NA</span>, R , U , L , <span class="ot">NA</span>)</a></code></pre></div>
+<p>It was easier to define policy using character symbols (as above). However, we have to transform into form that is more convenient for computations.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">as_idx &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  n.row &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(x)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  n.col &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(x)</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  result &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(), <span class="dt">nrow =</span> n.row, <span class="dt">ncol =</span> n.col)</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n.row){</a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n.col){</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">      coords &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(i, j)</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">      </a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">      <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw"><a href="../reference/at.html">at</a></span>(x, coords)))</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">        <span class="cf">next</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">      </a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">      x.val &lt;-<span class="st"> </span>x[i, j]</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16">      <span class="cf">switch</span> (x.val,</a>
+<a class="sourceLine" id="cb6-17" data-line-number="17">        <span class="dt">U =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(i <span class="op">-</span><span class="st"> </span><span class="dv">1</span>, j),</a>
+<a class="sourceLine" id="cb6-18" data-line-number="18">        <span class="dt">D =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, j),</a>
+<a class="sourceLine" id="cb6-19" data-line-number="19">        <span class="dt">L =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(i, j <span class="op">-</span><span class="st"> </span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb6-20" data-line-number="20">        <span class="dt">R =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(i, j <span class="op">+</span><span class="st"> </span><span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb6-21" data-line-number="21">      ) -&gt;<span class="st"> </span>move.idx</a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23">      <span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="../reference/is_idx_possible.html">is_idx_possible</a></span>(x, move.idx))</a>
+<a class="sourceLine" id="cb6-24" data-line-number="24">        <span class="cf">next</span></a>
+<a class="sourceLine" id="cb6-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb6-26" data-line-number="26">      result[i, j] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(move.idx)</a>
+<a class="sourceLine" id="cb6-27" data-line-number="27">    }</a>
+<a class="sourceLine" id="cb6-28" data-line-number="28">  }</a>
+<a class="sourceLine" id="cb6-29" data-line-number="29">  result</a>
+<a class="sourceLine" id="cb6-30" data-line-number="30">}</a>
+<a class="sourceLine" id="cb6-31" data-line-number="31"></a>
+<a class="sourceLine" id="cb6-32" data-line-number="32">fixed.policy.idx &lt;-<span class="st"> </span><span class="kw">as_idx</span>(fixed.policy)</a>
+<a class="sourceLine" id="cb6-33" data-line-number="33">fixed.policy.idx</a>
+<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#&gt;      [,1]      [,2]      [,3]      [,4]      [,5]     </span></a>
+<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt; [1,] Numeric,2 Numeric,2 Numeric,2 NULL      Numeric,2</span></a>
+<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="co">#&gt; [2,] Numeric,2 Numeric,2 NULL      Numeric,2 Numeric,2</span></a>
+<a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt; [3,] NULL      Numeric,2 Numeric,2 Numeric,2 Numeric,2</span></a>
+<a class="sourceLine" id="cb6-38" data-line-number="38"><span class="co">#&gt; [4,] Numeric,2 Numeric,2 Numeric,2 NULL      Numeric,2</span></a>
+<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt; [5,] NULL      NULL      NULL      Numeric,2 Numeric,2</span></a>
+<a class="sourceLine" id="cb6-40" data-line-number="40"><span class="co">#&gt; [6,] NULL      Numeric,2 Numeric,2 Numeric,2 NULL</span></a></code></pre></div>
+</div>
+<div id="policy-evaluation-function" class="section level2">
+<h2 class="hasAnchor">
+<a href="#policy-evaluation-function" class="anchor"></a>Policy evaluation function</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">evaluate_policy &lt;-<span class="st"> </span><span class="cf">function</span>(actions, rewards, policy, </a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">                            <span class="dt">epsilon =</span> <span class="fl">1e-3</span>, <span class="dt">gamma =</span> <span class="fl">0.9</span>){</a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">  </a>
+<a class="sourceLine" id="cb7-4" data-line-number="4">  V &lt;-<span class="st"> </span><span class="kw"><a href="../reference/with_same_dims.html">with_same_dims</a></span>(policy, <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb7-5" data-line-number="5">  policy.idx &lt;-<span class="st"> </span><span class="kw">as_idx</span>(policy)</a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7">  <span class="cf">while</span> (<span class="ot">TRUE</span>) {</a>
+<a class="sourceLine" id="cb7-8" data-line-number="8">    biggest.change &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9">  </a>
+<a class="sourceLine" id="cb7-10" data-line-number="10">    <span class="cf">for</span> (move <span class="cf">in</span> <span class="kw"><a href="../reference/seq_matrix.html">seq_matrix</a></span>(policy.idx)) {</a>
+<a class="sourceLine" id="cb7-11" data-line-number="11">      s &lt;-<span class="st"> </span>move[[<span class="dv">1</span>]] <span class="co"># Action, value at index s</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12">      a &lt;-<span class="st"> </span>move[[<span class="dv">2</span>]]</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13">   </a>
+<a class="sourceLine" id="cb7-14" data-line-number="14">      old.v &lt;-<span class="st"> </span><span class="kw"><a href="../reference/at.html">at</a></span>(V, s)</a>
+<a class="sourceLine" id="cb7-15" data-line-number="15">        </a>
+<a class="sourceLine" id="cb7-16" data-line-number="16">      <span class="cf">if</span>(<span class="op">!</span><span class="kw"><a href="../reference/at.html">at</a></span>(actions, s))</a>
+<a class="sourceLine" id="cb7-17" data-line-number="17">        <span class="cf">next</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18">      </a>
+<a class="sourceLine" id="cb7-19" data-line-number="19">      <span class="cf">if</span>(<span class="kw"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(a))</a>
+<a class="sourceLine" id="cb7-20" data-line-number="20">        <span class="cf">next</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21">        </a>
+<a class="sourceLine" id="cb7-22" data-line-number="22">      r &lt;-<span class="st"> </span><span class="kw"><a href="../reference/at.html">at</a></span>(rewards, a)</a>
+<a class="sourceLine" id="cb7-23" data-line-number="23">      <span class="kw"><a href="../reference/at.html">at</a></span>(V, s) &lt;-<span class="st"> </span>r <span class="op">+</span><span class="st"> </span>gamma <span class="op">*</span><span class="st"> </span><span class="kw"><a href="../reference/at.html">at</a></span>(V, a)</a>
+<a class="sourceLine" id="cb7-24" data-line-number="24">      biggest.change &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span>(biggest.change, <span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(old.v <span class="op">-</span><span class="st"> </span><span class="kw"><a href="../reference/at.html">at</a></span>(V, s)))</a>
+<a class="sourceLine" id="cb7-25" data-line-number="25">    }</a>
+<a class="sourceLine" id="cb7-26" data-line-number="26">    </a>
+<a class="sourceLine" id="cb7-27" data-line-number="27">    <span class="kw"><a href="https://rdrr.io/r/base/print.html">print</a></span>(biggest.change)</a>
+<a class="sourceLine" id="cb7-28" data-line-number="28">    </a>
+<a class="sourceLine" id="cb7-29" data-line-number="29">    <span class="cf">if</span> (biggest.change <span class="op">&lt;</span><span class="st"> </span>epsilon){</a>
+<a class="sourceLine" id="cb7-30" data-line-number="30">      <span class="cf">break</span></a>
+<a class="sourceLine" id="cb7-31" data-line-number="31">    }</a>
+<a class="sourceLine" id="cb7-32" data-line-number="32">  }</a>
+<a class="sourceLine" id="cb7-33" data-line-number="33">  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(V)</a>
+<a class="sourceLine" id="cb7-34" data-line-number="34">}  </a></code></pre></div>
+</div>
+<div id="experiment" class="section level2">
+<h2 class="hasAnchor">
+<a href="#experiment" class="anchor"></a>Experiment</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">V1 &lt;-<span class="st"> </span><span class="kw">evaluate_policy</span>(<span class="dt">actions =</span> actions, </a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">                      <span class="dt">rewards =</span> rewards,</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">                      <span class="dt">policy  =</span> fixed.policy)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; [1] 1</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; [1] 0.9</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; [1] 0.81</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; [1] 0.729</span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; [1] 0.6561</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; [1] 0.59049</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; [1] 0</span></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">V1</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;      [,1] [,2] [,3] [,4]  [,5]</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt; [1,]   -1   -1   -1  0.0 0.458</span></a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; [2,]   -1   -1    0  0.8 0.620</span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt; [3,]    0   -1   -1  1.0 0.458</span></a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; [4,]   -1   -1   -1  0.0 0.620</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; [5,]    0    0    0  1.0 0.800</span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; [6,]    0   -1   -1 -1.0 0.000</span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="kw"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(V1)</a></code></pre></div>
+<p><img src="policy_evaluation_files/figure-html/experiment-1.png" width="700"></p>
 </div>
   </div>
 
@@ -193,9 +251,10 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#implementing-environment">Implementing environment</a></li>
-      <li><a href="#initializing-environment">Initializing environment</a></li>
+<li><a href="#initializing-environment">Initializing environment</a></li>
       <li><a href="#setting-fixed-policy">Setting fixed policy</a></li>
+      <li><a href="#policy-evaluation-function">Policy evaluation function</a></li>
+      <li><a href="#experiment">Experiment</a></li>
       </ul>
 </div>
       </div>

@@ -22,7 +22,8 @@ reference:
   - set_values
   - at
   - antidiag
-  - neighbour_idx
+  - matrix_idx
+  - seq_matrix
 - title: Operators
   contents:
   - '%m%'

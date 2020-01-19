@@ -21,6 +21,7 @@ a ggplot object
 This function allows us to plot matrices easily
 }
 \examples{
+\dontrun{
 x1 <- m(T, T, T, F, T |
         T, T, F, T, T |
         F, T, T, T, F |
@@ -33,4 +34,5 @@ x2 <- m(T, T, T, F, T |
 plot(x2)
 x3 <- m(runif(3) | runif(3) | runif(3))
 plot(x3)
+}
 }

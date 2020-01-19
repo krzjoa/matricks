@@ -20,7 +20,9 @@ Get available marix indices
 }
 \examples{
 mat <- matrix(0, 3, 3)
-mask <- m(T, T, F | T, F, T | F, F, T)
+mask <- m(TRUE,  TRUE,  FALSE |
+          TRUE,  FALSE, TRUE  |
+          FALSE, TRUE,  TRUE)
 # All poss
 matrix_idx(mat)
 matrix_idx(mat, mask = mask)

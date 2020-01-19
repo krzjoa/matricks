@@ -80,7 +80,7 @@ must be the same" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">matricks</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
       </span>
     </div>
 
@@ -144,7 +144,7 @@ must be the same</p>
 
 <span class='no'>a</span> <span class='kw'>%-%</span> <span class='no'>b</span>
 
-<span class='st'>"%+%.matrix"</span>(<span class='no'>a</span>, <span class='no'>b</span>)</pre>
+<span class='no'>a</span> <span class='kw'>%+%</span> <span class='no'>b</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,7 +173,10 @@ must be the same</p>
 #&gt; [1,] 0.200000 0.400000  0.6
 #&gt; [2,] 1.000000 1.250000  1.5
 #&gt; [3,] 2.333333 2.666667  3.0</div><div class='input'><span class='co'># Add</span>
-<span class='fu'><a href='m.html'>m</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span> <span class='kw'>|</span> <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span> <span class='kw'>|</span> <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>) <span class='kw'>%+%</span> <span class='fu'><a href='v.html'>v</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>)</div><div class='output co'>#&gt; <span class='error'>Error in m(1, 2, 3 | 4, 5, 6 | 7, 8, 9) %+% v(5, 4, 3): nie udało się znaleźć funkcji '%+%'</span></div><div class='input'><span class='co'># Subtract</span>
+<span class='fu'><a href='m.html'>m</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span> <span class='kw'>|</span> <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span> <span class='kw'>|</span> <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>) <span class='kw'>%+%</span> <span class='fu'><a href='v.html'>v</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    6    7    8
+#&gt; [2,]    8    9   10
+#&gt; [3,]   10   11   12</div><div class='input'><span class='co'># Subtract</span>
 <span class='fu'><a href='m.html'>m</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span> <span class='kw'>|</span> <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span> <span class='kw'>|</span> <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>) <span class='kw'>%-%</span> <span class='fu'><a href='v.html'>v</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]   -4   -3   -2
 #&gt; [2,]    0    1    2

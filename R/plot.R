@@ -6,6 +6,7 @@
 #' @return a ggplot object
 #' @import ggplot2
 #' @examples
+#' \dontrun{
 #' x1 <- m(T, T, T, F, T |
 #'         T, T, F, T, T |
 #'         F, T, T, T, F |
@@ -18,6 +19,7 @@
 #' plot(x2)
 #' x3 <- m(runif(3) | runif(3) | runif(3))
 #' plot(x3)
+#' }
 #' @export
 plot_matrix <- function(x, ...){
   x2 <- reshape2::melt(x)
@@ -37,29 +39,3 @@ plot_matrix <- function(x, ...){
 #' @rdname plot_matrix
 #' @export
 plot.matrix <- plot_matrix
-
-
-#' @examples
-#' flow.matrix <- flow_matrix(U, U, U | D, L, R)
-# plot_flow_matrix <- function(flow.matrix){
-#   x2 <- reshape2::melt(flow.matrix)
-#   colnames(x2) <- c("rows", "columns", "value")
-#   x2$value <- 1
-#   x2$y.start <- x2$rows - 0.5
-#   x2$y.end <- x2$rows + 0.5
-#   x2$x.start <- x2$columns - 0.5
-#   x2$x.end <- x2$columns + 0.5
-#
-#   ggplot(data = x2) +
-#     geom_tile(aes(x = columns, y = rows, fill=value)) +
-#     geom_segment(aes(x = x.start, y = y.start, xend = x.end, yend = y.end), arrow =  arrow(length =unit(0.05, "npc")), size = .8) +
-#     scale_x_continuous(minor_breaks = 1:ncol(x) + 0.5, breaks = 0:ncol(x) + 1) +
-#     scale_y_reverse(minor_breaks = nrow(x):1 + 0.5, breaks = nrow(x):0, labels = nrow(x):0) +
-#     theme(
-#       panel.background = element_rect(fill = NA),
-#       panel.grid.major.x = element_blank(),
-#       panel.grid.major.y = element_blank(),
-#       panel.ontop = TRUE) +
-#     coord_equal()
-#   }
-
