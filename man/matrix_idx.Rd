@@ -19,12 +19,12 @@ matrix_idx(x, n.row = NULL, n.col = NULL, mask = NULL)
 Get available marix indices
 }
 \examples{
+\donttest{
 mat <- matrix(0, 3, 3)
-mask <- m(TRUE,  TRUE,  FALSE |
-          TRUE,  FALSE, TRUE  |
-          FALSE, TRUE,  TRUE)
+mask <- m(T, T, F | T, F, T | F, F, T)
 # All poss
 matrix_idx(mat)
 matrix_idx(mat, mask = mask)
 matrix_idx(mask = mask)
+}
 }

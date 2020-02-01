@@ -21,7 +21,7 @@ a ggplot object
 This function allows us to plot matrices easily
 }
 \examples{
-\dontrun{
+\donttest{
 x1 <- m(T, T, T, F, T |
         T, T, F, T, T |
         F, T, T, T, F |

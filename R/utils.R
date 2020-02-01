@@ -20,7 +20,7 @@ is_idx_possible <- function(mat, idx){
 #' @param n.col number of columns; default: NULL
 #' @param mask logical matrix; default: NULL
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' mat <- matrix(0, 3, 3)
 #' mask <- m(T, T, F | T, F, T | F, F, T)
 #' # All poss

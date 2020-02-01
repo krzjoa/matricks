@@ -1,10 +1,18 @@
+# matricks 0.8.0
+* `neighbour_idx()` restored
+* refactorization
+
+# matricks 0.7.0
+* `is_idx_possible()` added
+* `seq_matrix()` added
+* `matrix_idx()` added
+
 # matricks 0.6.0
-* Added:
-  * `with_same_dims()`
-  * `plot_matrix()` and `plot.matrix()`
-  * `runifm()`
-  * `rboolm()`
-  
+* `with_same_dims()` added
+* `plot_matrix()` and `plot.matrix()` added
+* `runifm()` added
+* `rboolm()` added
+
 # matricks 0.5.0
 * `at()` and `at<-` functions added
 * refactoring and bugfixes

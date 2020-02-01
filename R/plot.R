@@ -6,7 +6,7 @@
 #' @return a ggplot object
 #' @import ggplot2
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' x1 <- m(T, T, T, F, T |
 #'         T, T, F, T, T |
 #'         F, T, T, T, F |
