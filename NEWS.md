@@ -1,5 +1,6 @@
 # matricks 0.8.0
 * `neighbour_idx()` restored
+* `runifm()` added
 * refactorization
 
 # matricks 0.7.0
