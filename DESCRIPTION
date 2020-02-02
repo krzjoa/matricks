@@ -1,9 +1,13 @@
 Package: matricks
 Type: Package
 Title: Useful Tricks for Matrix Manipulation in R
-Version: 0.8.0
-Author: Krzysztof Joachimiak <joachimiak.krzysztof@gmail.com>
-Maintainer: Krzysztof Joachimiak <joachimiak.krzysztof@gmail.com>
+Version: 0.8.1
+Authors@R: 
+    person("Krzysztof",
+           family = "Joachimiak",
+           role = c("aut", "cre"),
+           email = "joachimiak.krzysztof@gmail.com",
+           comment = c(ORCID = "0000-0003-4780-7947"))
 Description: Functions, which facilitates matrix creation and manipulation.
 License: MIT + file LICENSE
 Encoding: UTF-8

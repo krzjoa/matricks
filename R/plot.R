@@ -22,9 +22,11 @@
 #' }
 #' @export
 plot_matrix <- function(x, ...){
+  # To pass CRAN check
+  columns <- rows <- value <- NULL
   x2 <- reshape2::melt(x)
   colnames(x2) <- c("rows", "columns", "value")
-  ggplot(data = x2, aes(x = columns, y = rows, fill=value)) +
+  ggplot(data = x2, aes(x = columns, y = rows, fill = value)) +
     geom_tile() +
     scale_x_continuous(minor_breaks = 1:ncol(x) + 0.5, breaks = 0:ncol(x) + 1) +
     scale_y_reverse(minor_breaks = nrow(x):1 + 0.5, breaks = nrow(x):0, labels = nrow(x):0) +

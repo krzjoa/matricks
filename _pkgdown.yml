@@ -8,16 +8,16 @@ authors:
 reference:
 - title: Create, bind & repeat
   contents:
-    - m
-    - v
-    - col_bind
-    - row_bind
-    - crep
-    - rrep
-    - with_same_dims
-    - runif_same_dims
-    - runifm
-    - rboolm
+  - m
+  - v
+  - col_bind
+  - row_bind
+  - crep
+  - rrep
+  - with_same_dims
+  - runif_same_dims
+  - runifm
+  - rboolm
 - title: Get & set elements
   contents:
   - set_values

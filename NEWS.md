@@ -1,3 +1,6 @@
+# matricks 0.8.1
+* minor chnages for CRAN submission
+
 # matricks 0.8.0
 * `neighbour_idx()` restored
 * `runifm()` added
