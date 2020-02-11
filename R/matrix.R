@@ -9,12 +9,12 @@
 #' It is an alternative to standard way we define
 #' matrices in R.
 #' @examples
-#' # Typically, we define in like this:
+#' # Typically, we define matrices like this:
 #' x <- matrix(c(1, 2, 3,
 #'               4, 5, 6,
 #'               7, 8, 9), nrow=3, byrow=TRUE)
 #' x
-#' # However, this way of ceating matices seems
+#' # However, this way of ceating matices seems to be
 #' # a little bit clunky. Using `matricks`, we can do
 #' # it in more staightforward way dividing our input
 #' # into rows by using special symbol `|`

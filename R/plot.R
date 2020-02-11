@@ -6,7 +6,7 @@
 #' @return a ggplot object
 #' @import ggplot2
 #' @examples
-#' \donttest{
+#' T <- TRUE; F <- FALSE
 #' x1 <- m(T, T, T, F, T |
 #'         T, T, F, T, T |
 #'         F, T, T, T, F |
@@ -19,7 +19,6 @@
 #' plot(x2)
 #' x3 <- m(runif(3) | runif(3) | runif(3))
 #' plot(x3)
-#' }
 #' @export
 plot_matrix <- function(x, ...){
   # To pass CRAN check

@@ -81,7 +81,7 @@ etc." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">matricks</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.8.2</span>
       </span>
     </div>
 
@@ -113,7 +113,12 @@ etc." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/krzjoa/matricks">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,7 +133,7 @@ etc." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Set multiple values useing one function call</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/krzjoa/matricks/blob/master/R/set.R'><code>R/set.R</code></a></small>
     <div class="hidden name"><code>set_values.Rd</code></div>
     </div>
 
@@ -140,15 +145,15 @@ mat[2,3] &lt;- 0.5
 etc.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>set_values</span>(<span class='no'>matrix</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>set_values</span>(<span class='no'>mat</span>, <span class='no'>...</span>)
 
-<span class='fu'>sv</span>(<span class='no'>matrix</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>sv</span>(<span class='no'>mat</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>matrix</th>
+      <th>mat</th>
       <td><p>a matrix object</p></td>
     </tr>
     <tr>

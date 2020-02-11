@@ -6,6 +6,7 @@
 #' between these functions. If you pass a vector, each value
 #' will be get individually.
 #' @param ... single values, vectors, matrices or data.frames
+#' @return a matrix being a product of matrix/vector/values binding
 #' @examples
 #' # `col_bind` vs `cbind`
 #' cbind(1,2,3,4,5)

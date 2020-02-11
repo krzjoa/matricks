@@ -15,27 +15,26 @@ is_idx_possible <- function(mat, idx){
 
 #' @name matrix_idx
 #' @title Get available marix indices
-#' @param x matrix
+#' @param mat matrix
 #' @param n.row number of rows; default: NULL
 #' @param n.col number of columns; default: NULL
 #' @param mask logical matrix; default: NULL
 #' @examples
-#' \donttest{
+#' T <- TRUE; F <- FALSE
 #' mat <- matrix(0, 3, 3)
 #' mask <- m(T, T, F | T, F, T | F, F, T)
 #' # All poss
 #' matrix_idx(mat)
 #' matrix_idx(mat, mask = mask)
 #' matrix_idx(mask = mask)
-#' }
 #' @export
-matrix_idx <- function(x, n.row = NULL, n.col = NULL, mask = NULL){
+matrix_idx <- function(mat, n.row = NULL, n.col = NULL, mask = NULL){
 
-  if (missing(x) & !is.null(mask))
-    x <- mask
+  if (missing(mat) & !is.null(mask))
+    mat <- mask
 
-  n.col <- if (is.null(n.col)) ncol(x) else n.col
-  n.row <- if (is.null(n.row)) nrow(x) else n.col
+  n.col <- if (is.null(n.col)) ncol(mat) else n.col
+  n.row <- if (is.null(n.row)) nrow(mat) else n.col
   out <- expand.grid(1:n.row, 1:n.col)
 
   if (is.null(mask))

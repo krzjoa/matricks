@@ -4,10 +4,10 @@
 \alias{matrix_idx}
 \title{Get available marix indices}
 \usage{
-matrix_idx(x, n.row = NULL, n.col = NULL, mask = NULL)
+matrix_idx(mat, n.row = NULL, n.col = NULL, mask = NULL)
 }
 \arguments{
-\item{x}{matrix}
+\item{mat}{matrix}
 
 \item{n.row}{number of rows; default: NULL}
 
@@ -19,12 +19,11 @@ matrix_idx(x, n.row = NULL, n.col = NULL, mask = NULL)
 Get available marix indices
 }
 \examples{
-\donttest{
+T <- TRUE; F <- FALSE
 mat <- matrix(0, 3, 3)
 mask <- m(T, T, F | T, F, T | F, F, T)
 # All poss
 matrix_idx(mat)
 matrix_idx(mat, mask = mask)
 matrix_idx(mask = mask)
-}
 }

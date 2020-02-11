@@ -54,12 +54,11 @@ neighbour_idx <- function(mat, idx, mask = NULL, diagonal = TRUE, include.idx = 
 #' @param diagonal logical. get diagonal neighbours
 #' @param random.select select one random neighbour
 #' @examples
-#' \donttest{
+#' T <- TRUE; F <- FALSE
 #' mat <- matrix(0, 3, 3)
 #' mask <- m(T, T, F | T, F, T | F, F, T)
 #' nimat <- neighbour_idx_matrix(mat, mask, diagonal = TRUE)
-#' neighbour_idx_matrix(mat, mask, diagonal = TRUE, random.select = 1) # TODO: > 2 error
-#' }
+#' neighbour_idx_matrix(mat, mask, diagonal = TRUE, random.select = 1)
 #' @export
 neighbour_idx_matrix <- function(mat, mask = NULL, diagonal = TRUE, random.select = NULL){
   n.row <- nrow(mat)

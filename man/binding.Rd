@@ -13,6 +13,9 @@ row_bind(...)
 \arguments{
 \item{...}{single values, vectors, matrices or data.frames}
 }
+\value{
+a matrix being a product of matrix/vector/values binding
+}
 \description{
 This functions works very similar to well-known base
 `cbind` or `rbind`  function. However, there is one big difference

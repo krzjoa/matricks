@@ -1,10 +1,10 @@
-  
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # matricks <img src='man/figures/logo.png' align="right" height="139" />
 
-> Useful tricks for matrix manipulation in
-R.
+> Useful tricks for matrix
+manipulation
 
 <!-- badges: start -->
 

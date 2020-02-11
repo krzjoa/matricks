@@ -5,12 +5,12 @@
 \alias{sv}
 \title{Set multiple values useing one function call}
 \usage{
-set_values(matrix, ...)
+set_values(mat, ...)
 
-sv(matrix, ...)
+sv(mat, ...)
 }
 \arguments{
-\item{matrix}{a matrix object}
+\item{mat}{a matrix object}
 
 \item{...}{formulae; left hand values should be two-element interger vectors and right-hand: a single-value numeric}
 }

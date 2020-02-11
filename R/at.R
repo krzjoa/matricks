@@ -4,6 +4,7 @@
 #' @param mat matrix
 #' @param idx two-element integer vector
 #' @param value a value to be assign at index
+#' @return `at` function: value from matrix at index idx
 #' @examples
 #' mat <- matrix(0, 3, 3)
 #' idx <- c(1, 2)

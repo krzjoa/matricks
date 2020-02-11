@@ -16,6 +16,9 @@ at(mat, idx) <- value
 
 \item{value}{a value to be assign at index}
 }
+\value{
+`at` function: value from matrix at index idx
+}
 \description{
 This function allows to access matrix values by passing indices as vector
 }
