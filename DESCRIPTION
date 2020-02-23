@@ -9,8 +9,8 @@ Authors@R:
            email   = "joachimiak.krzysztof@gmail.com",
            comment = c(ORCID = "0000-0003-4780-7947"))
 Description: Provides functions, which make matrix creation conciser 
-             (such as the core package's function `m` for rowwise matrix definition or 
-             `runifm` for random value matrices).
+             (such as the core package's function m() for rowwise matrix definition or 
+             runifm() for random value matrices).
              Allows to set multiple matrix values at once, by using list of formulae. 
              Provides additional matrix operators and dedicated plotting function.
 License: MIT + file LICENSE

@@ -3,11 +3,12 @@
 
 # matricks <img src='man/figures/logo.png' align="right" height="139" />
 
-> Useful tricks for matrix
-manipulation
+> Useful tricks for matrix manipulation
 
 <!-- badges: start -->
 
+[![CRAN
+status](https://www.r-pkg.org/badges/version/matricks)](https://CRAN.R-project.org/package=matricks)
 [![Documentation](https://img.shields.io/badge/documentation-matricks-orange.svg?colorB=E91E63)](http://krzjoa.github.io/matricks)
 [![Travis build
 status](https://travis-ci.org/krzjoa/matricks.svg?branch=master)](https://travis-ci.org/krzjoa/matricks)
@@ -15,10 +16,18 @@ status](https://travis-ci.org/krzjoa/matricks.svg?branch=master)](https://travis
 status](https://ci.appveyor.com/api/projects/status/github/krzjoa/matricks?branch=master&svg=true)](https://ci.appveyor.com/project/krzjoa/matricks)
 [![Buy hex
 stciker](https://img.shields.io/badge/buy%20hex-matricks-green)](https://www.redbubble.com/people/krzjoa/works/43111073-matricks-r-package-hex?asc=u&kind=sticker&p=sticker&size=small)
-
 <!-- badges: end -->
 
 ### Installation
+
+`matricks` is available on CRAN, so you can install it using simply:
+
+``` r
+install.packages('matricks')
+```
+
+If you rather want to install dev version, you can do it with
+`devtools`.
 
 ``` r
 devtools::install_github('krzjoa/matricks')
