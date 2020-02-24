@@ -17,7 +17,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 BugReports: https://github.com/krzjoa/matricks/issues
-URL: https://github.com/krzjoa/matricks, https://krzjoa.github.io/matricks/
+        URL: https://github.com/krzjoa/matricks, https://krzjoa.github.io/matricks/
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
