@@ -14,3 +14,6 @@ ones(nrow, ncol)
 \description{
 Create matrix with ones values only
 }
+\examples{
+ones(4, 5)
+}

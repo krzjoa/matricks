@@ -14,3 +14,6 @@ zeros(nrow, ncol)
 \description{
 Create matrix with zeros values only
 }
+\examples{
+zeros(4, 5)
+}
