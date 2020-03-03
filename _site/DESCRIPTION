@@ -1,0 +1,34 @@
+Package: matricks
+Type: Package
+Title: Useful Tricks for Matrix Manipulation
+Version: 0.8.2
+Authors@R: 
+    person(given   = "Krzysztof",
+           family  = "Joachimiak",
+           role    = c("aut", "cre"),
+           email   = "joachimiak.krzysztof@gmail.com",
+           comment = c(ORCID = "0000-0003-4780-7947"))
+Description: Provides functions, which make matrix creation conciser 
+             (such as the core package's function m() for rowwise matrix definition or 
+             runifm() for random value matrices).
+             Allows to set multiple matrix values at once, by using list of formulae. 
+             Provides additional matrix operators and dedicated plotting function.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+BugReports: https://github.com/krzjoa/matricks/issues
+        URL: https://github.com/krzjoa/matricks, https://krzjoa.github.io/matricks/
+Suggests: 
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown,
+    covr
+RoxygenNote: 6.1.1
+LinkingTo: 
+    Rcpp
+Imports: 
+    Rcpp,
+    rlang,
+    ggplot2,
+    reshape2
+VignetteBuilder: knitr

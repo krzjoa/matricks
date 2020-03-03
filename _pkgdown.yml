@@ -18,6 +18,8 @@ reference:
   - runif_same_dims
   - runifm
   - rboolm
+  - zeros
+  - ones
 - title: Get & set elements
   contents:
   - set_values

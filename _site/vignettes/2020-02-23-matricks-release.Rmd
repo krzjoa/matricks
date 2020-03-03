@@ -1,0 +1,148 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+`matricks` package in **0.8.2** version has been released on CRAN! In this post I will present you, what are advantagese of using `matricks` and how you can use it. 
+<a href="https://krzjoa.github.io/matricks"><img src='https://raw.githubusercontent.com/krzjoa/matricks/master/man/figures/logo.png' align="right" height="139" style="height:139px;" /></a>
+
+
+### Creating matrices
+The main function the package started with is `m`. It's a smart shortcut for creating matrices, especially usefull if you want to define a matrix by enumerating all the elements row-by-row. Typically, if you want to create a matrix in R, you can do it using `base` function called `matrix`.
+
+```{r base.matrix}
+matrix(c(3 ,4, 7,
+         5, 8, 0,
+         9, 2, 1), nrow = 3, byrow = TRUE)
+```
+Although it's a very simple opeartion, the funtion call doesn't look tidy. Alternaively, we can use `tibble` with its `frame_matrix` function, defining column names with formulae first.
+
+```{r tibble}
+library(tibble)
+frame_matrix(~ c1, ~ c2, ~ c3,
+                3,    4,    7,
+                5,    8,    0,
+                9,    2,    1)
+```
+However, it's still not a such powerfull tool as `matricks::m` function is. Let's see an example.
+
+```{r matricks.m}
+library(matricks)
+m(3 ,4, 7|
+  5, 8, 0|
+  9, 2, 1)
+```
+As simple as that! We join following rows using `|` operator. `m` function is very flexible and offers you much more than before mentioned ones. 
+```{r matricks.vectors}
+m(1:3 | 4, 6, 7 | 2, 1, 4)
+```
+
+And here and example with bindig multiple matrices together:
+```{r matricks.binding}
+mat1   <- diag(1, 3, 3)
+mat2  <- antidiag(1, 3, 3) * 3
+m(mat1, mat2|
+  mat2, mat1)
+```
+By the way, `antidiag` function can be found in the `matricks` package too.
+
+### Setting & accessing values
+These code 
+```{r setting.matrix}
+mat <- matrix(0, 3, 3)
+mat[1, 2] <- 0.3
+mat[2, 3] <- 7
+mat[3, 1] <- 13
+mat[2, 2] <- 0.5
+mat
+```
+can be replaced with:
+```{r matricks.sv}
+mat <- matrix(0, 3, 3)
+mat <- set_values(mat,
+                  c(1, 2) ~ 0.3,
+                  c(2, 3) ~ 7,
+                  c(3, 1) ~ 13,
+                  c(2, 2) ~ 0.5)
+mat
+```
+
+In some cases, traditional way we access a matrix element in `R` may be inconvenient. Consider situation shown below:
+```{r matrix.loop}
+sample.matrix <- matrix(1, 3, 3)
+matrix.indices <- list(c(1, 1), c(1, 2), 
+                       c(1, 3), c(2, 2),
+                       c(3, 1), c(3, 3))
+
+for (idx in matrix.indices) {
+  sample.matrix[idx[1], idx[2]] <- sample.matrix[idx[1], idx[2]] + 2
+}
+
+sample.matrix
+```
+
+It can be expressed conciser using matrix `at` function.
+
+```{r matrix.loop.at}
+sample.matrix <- matrix(1, 3, 3)
+matrix.indices <- list(c(1, 1), c(1, 2), 
+                       c(1, 3), c(2, 2),
+                       c(3, 1), c(3, 3))
+
+for (idx in matrix.indices) {
+  at(sample.matrix, idx) <- at(sample.matrix, idx) + 2
+}
+sample.matrix
+```
+
+### Plotting matrix
+`matrix` objects haven't had good automatized plotting function until now. 
+Let's create and plot a sample matrix of random values.
+
+```{r matricks.runifm}
+rmat <- runifm(3, 3)
+print(rmat)
+plot(rmat)
+```
+
+And here the same using a matrix of random boolean values (`rboolm`).
+
+```{r matricks.rboolm}
+set.seed(7)
+rmat <- rboolm(3, 3)
+print(rmat)
+plot(rmat)
+```
+
+### Operators
+
+`matricks` contains a family of operators, which allows you to perform column-/row-wise operation (addition/subtraction/multiplication/division) between matrix and vector.
+
+```{r operators}
+mat <- m(1, 2, 3|
+         4, 5, 6|
+         7, 8, 9)
+mat
+vec <- v(1:3)
+vec
+```
+If we try to do a column-wise multiplication, we ecounter a problem.
+
+```{r operators.error, error=TRUE}
+mat * vec
+```
+
+We can bypass this error using `%m%` function. It does what we want!
+
+```{r operator.example}
+mat %m% vec
+```
+
+There are also several other operators available.
+
+```{r other.operators}
+mat %d% vec
+mat %+% vec
+mat %-% vec
+```
+
+I encourage you to familiarize with `matricks`. Visit [matrix documentation](https://krzjoa.github.io/matricks) site and learn more!
+
